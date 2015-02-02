@@ -1,4 +1,9 @@
+@(content: java.util.List[String])
 <h1>Heisann og velkommen til kalender!</h1>
 <form name="this" action="/get" method="POST">
-    <textarea name="text" value )
+    <textarea name="text" value="Text Here"></textarea>
+    <input type="submit" name="submit" value="submit">
 </form>
+        @for(i <- content){@i <br>}
+
+

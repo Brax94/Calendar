@@ -2,12 +2,16 @@ package models;
 
 import play.db.ebean.Model;
 
+import javax.persistence.*;
+
 /**
  * Created by eliasbragstadhagen on 30.01.15.
  */
-@entity
+@Entity
 public class Dbtest extends Model {
 
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
 
     public String getText() {
