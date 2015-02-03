@@ -1,9 +1,16 @@
 @(content: java.util.List[String])
+<div class="wrap">
+    <div style="align-content: center; padding: -5%">
+    <div style="background-color: cornflowerblue; padding: 2em 4%; border-radius: 0px; border-color: black; border-style: solid">
 <h1>Heisann og velkommen til kalender!</h1>
+    </div><br>
+    <div style="border-color: black; border-radius: 0px; padding: 2em 4%; border-width: 3px; border-style: solid">
 <form name="this" action="/get" method="POST">
     <textarea name="text" value="Text Here"></textarea>
     <input type="submit" name="submit" value="submit">
 </form>
         @for(i <- content){@i <br>}
-
+    </div>
+</div>
+</div>
 
