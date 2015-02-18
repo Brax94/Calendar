@@ -16,7 +16,7 @@ import static play.data.Form.form;
 public class Application extends Controller {
 
     public static Result index() {
-        return ok(layout.render(get()));
+        return ok(layoutHtml.render("Kalender", layout.render(get())));
     }
 
     final static Form<Dbtest> test = form(Dbtest.class);
@@ -26,7 +26,7 @@ public class Application extends Controller {
        Dbtest dbtest = input.get();
         System.out.println(dbtest.getText());
         dbtest.save();
-        return ok(layout.render(get()));
+        return index();
     }
 
     public static List<String> get(){
