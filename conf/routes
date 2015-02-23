@@ -3,8 +3,11 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index()
-POST    /get                        controllers.Application.save()
+GET         /                    controllers.Application.index()
+POST        /get                 controllers.Application.save()
+
+#LogIn
+GET         /signin              controllers.LogIn.index()
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET         /assets/*file        controllers.Assets.at(path="/public", file)
