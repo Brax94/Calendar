@@ -6,7 +6,7 @@
 .box {
     color: white;
     border-color: black;
-    background-color: black;
+    background-color: #333333;
     border-radius: 8px;
     border-style: solid;
     border-width: 2px;

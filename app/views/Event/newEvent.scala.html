@@ -1,22 +1,49 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-6 col-md-offset-3">
+        <div class="col-md-4 col-md-offset-4">
             <div class="box">
-            <form>
-                <div class="form-group">
-                    <lable for="title">Event title:</lable>
-                    <div class="input-group">
+                <h2><strong><p class="text-center">Create new event</p></strong></h2>
+                <hr>
+                <form>
+                    <div class="form-group">
+                        <lable for="title">Event title:</lable>
+                        <div class="input-group">
                     <span class="input-group-addon" id="title-id">
                     <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                     </span>
-                    <input type="text" class="form-control" id="title" aria-describedby="title-id" placeholder="Title">
+                            <input type="text" class="form-control" id="title" aria-describedby="title-id"
+                                   placeholder="Title">
+                        </div>
                     </div>
+                    <div class="form-group">
+                        <lable for="text">About your event:</lable>
+                        <textarea class="form-control" id="text"
+                                  placeholder="Write something about your event here"></textarea>
                     </div>
-                <div class="form-group">
-                    <lable for="text">About your event:</lable>
-                        <textarea class="form-control" id="text" placeholder="Write something about your event here"></textarea>
-                </div>
-            </form>
+                    <div class="form-group">
+                        <lable for="start">Event start:</lable>
+                        <div class="input-group">
+                    <span class="input-group-addon" id="start-id">
+                    <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                    </span>
+                            <input type="datetime-local" class="form-control" id="start" aria-describedby="start-id">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <lable for="end">Event end:</lable>
+                        <div class="input-group">
+                    <span class="input-group-addon" id="end-id">
+                    <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                    </span>
+                            <input type="datetime-local" class="form-control" id="end" aria-describedby="end-id">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                    <button class="btn btn-danger form-control" type="submit" aria-label="Left Align">
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                        Submit
+                    </button></div>
+                </form>
             </div>
         </div>
     </div>

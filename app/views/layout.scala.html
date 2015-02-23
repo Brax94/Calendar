@@ -2,17 +2,17 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <div style="background-color : #333333 ; color : white ; border-color : black ; border-width : 3 px ; border-style : solid ; border-radius : 3 px ;">
+            <div style="background-color : #333333 ; color : white ; border-color : black ; border-width : 3px ; border-style : solid ; border-radius : 3px ;">
                 <h1><p class="text-center">Kalender!</p></h1>
             </div><br>
         </div>
     </div>
-    <div class="row" style="padding-bottom : 1 em">
+    <div class="row" style="padding-bottom : 1em">
         <div class="col-md-6 col-md-offset-3">
-            <div style="border-color : black ; border-width : 3 px ; border-style : solid ; border-radius : 3 px ;">
+            <div style="border-color : black ; border-width : 3px ; border-style : solid ; border-radius : 3px ;">
                 <form name="this" action="/get" method="POST">
                     <div class="form-group">
-                        <div style="padding-bottom : 1 em">
+                        <div style="padding-bottom : 1em">
                             <textarea name="text" value="Text Here" class="form-control"></textarea></div>
                         <div class="span7 text-center">
                             <input type="submit" name="submit" value="submit" class="btn btn-primary">
@@ -24,7 +24,7 @@
     </div><br>
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <div style="border-color : black ; border-width : 3 px ; border-style : solid ; border-radius : 3 px ;">
+            <div style="border-color : black ; border-width : 3px ; border-style : solid ; border-radius : 3px ;">
                 @for(i <- content) {
                     <p class="text-center">@i</p> <br>}
             </div>
