@@ -2,3 +2,13 @@
     width: 100%;
     margin: 0;
 }
+
+.box {
+    color: white;
+    border-color: black;
+    background-color: black;
+    border-radius: 8px;
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+    padding: 2%;
+}
