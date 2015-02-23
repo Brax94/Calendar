@@ -1,8 +1,10 @@
 package models;
 
+import com.avaje.ebean.annotation.CreatedTimestamp;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Calendar;
 
 /**
@@ -16,13 +18,32 @@ public class Event extends Model{
     @Column(nullable = false)
     private long eventId;
 
+    private String title;
     private String text;
     private String place;
+
     @Column(nullable = false)
     private Calendar eventStarts;
     @Column(nullable = false)
     private Calendar eventEnds;
+    @CreatedTimestamp
+    private Timestamp dateMade;
 
+    public static Finder<Long, Event> find = new Finder<Long, Event> (
+            Long.class, Event.class
+    );
+
+    public String getTitle() {
+        return title;
+    }
+
+    public long getEventId() {
+        return eventId;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public String getText() {
         return text;

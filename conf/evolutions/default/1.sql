@@ -11,10 +11,12 @@ create table dbtest (
 
 create table event (
   event_id                  bigint auto_increment not null,
+  title                     varchar(255),
   text                      varchar(255),
   place                     varchar(255),
   event_starts              timestamp not null,
   event_ends                timestamp not null,
+  date_made                 timestamp not null,
   constraint pk_event primary key (event_id))
 ;
 
