@@ -17,3 +17,11 @@
     padding: 2%;
 
 }
+
+body {
+    background: url(images/halong.jpg) no-repeat center center fixed;
+    -webkit-background-size: contain;
+    -moz-background-size: contain;
+    -o-background-size: contain;
+    background-size: contain;
+}
