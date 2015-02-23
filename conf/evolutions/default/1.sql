@@ -9,6 +9,15 @@ create table dbtest (
   constraint pk_dbtest primary key (id))
 ;
 
+create table event (
+  event_id                  bigint auto_increment not null,
+  text                      varchar(255),
+  place                     varchar(255),
+  event_starts              timestamp not null,
+  event_ends                timestamp not null,
+  constraint pk_event primary key (event_id))
+;
+
 
 
 
@@ -17,6 +26,8 @@ create table dbtest (
 SET REFERENTIAL_INTEGRITY FALSE;
 
 drop table if exists dbtest;
+
+drop table if exists event;
 
 SET REFERENTIAL_INTEGRITY TRUE;
 
