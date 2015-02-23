@@ -1,0 +1,16 @@
+@(content: java.util.List[models.Event])
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="box">
+                <h2><strong><p class="text-center"> My Events: </p></strong></h2>
+                <hr>
+                @for(i <- content){
+                <a href="/event/@i.getEventId()"> @i.getTitle() </a>
+                <hr>
+                }
+            </div>
+        </div>
+    </div>
+</div>

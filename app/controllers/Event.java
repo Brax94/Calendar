@@ -3,6 +3,9 @@ package controllers;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.data.Form;
+
+import java.util.List;
+
 import static play.data.Form.form;
 
 import static play.mvc.Results.ok;
@@ -30,5 +33,9 @@ public class Event extends Controller{
         long eventId = Long.valueOf(eventID);
         models.Event eventModel = models.Event.find.byId(eventId);
         return eventModel;
+    }
+    public static Result getEvents(){
+        List<models.Event> eventList = models.Event.find.all();
+        return ok(views.html.layoutHtml.render("MyEvents", views.html.Event.myEvents.render(eventList)));
     }
 }
