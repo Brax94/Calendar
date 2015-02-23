@@ -12,7 +12,7 @@ import static play.mvc.Results.ok;
  */
 public class Event extends Controller{
 
-    public Result renderEvent(String eventID){
+    public static Result renderEvent(String eventID){
         return ok(views.html.layoutHtml.render("Event", views.html.Event.event.render(getEvent(eventID))));
     }
 
@@ -23,10 +23,10 @@ public class Event extends Controller{
         Form<models.Event> eventForm = form(models.Event.class).bindFromRequest();
         models.Event eventModel = eventForm.get();
         eventModel.save();
-        return redirect(routes.renderEvent("" + eventModel.getEventId()).absoluteURL(request()));
+        return redirect(routes.Event.renderEvent("" + eventModel.getEventId()).absoluteURL(request()));
     }
 
-    public models.Event getEvent(String eventID){
+    public static models.Event getEvent(String eventID){
         long eventId = Long.valueOf(eventID);
         models.Event eventModel = models.Event.find.byId(eventId);
         return eventModel;
