@@ -15,7 +15,9 @@ public class Bruker extends Model {
     @Column(nullable = false)
 
     private long userId;
-    private String brukernavn;
+    @Column(nullable = false)
+    private String username;
+    @Column(nullable = false)
     private String passord;
     private String Fornavn;
     private String Etternavn;
@@ -26,12 +28,12 @@ public class Bruker extends Model {
         return userId;
     }
 
-    public String getBrukernavn() {
-        return brukernavn;
+    public String getUsername() {
+        return username;
     }
 
-    public void setBrukernavn(String brukernavn) {
-        this.brukernavn = brukernavn;
+    public void setUsername(String brukernavn) {
+        this.username = brukernavn;
     }
 
     public String getPassord() {
