@@ -20,15 +20,6 @@ create table bruker (
   constraint pk_bruker primary key (user_id))
 ;
 
-create table bruker (
-  user_id                   bigint auto_increment not null,
-  brukernavn                varchar(255),
-  passord                   varchar(255),
-  fornavn                   varchar(255),
-  etternavn                 varchar(255),
-  constraint pk_bruker primary key (user_id))
-;
-
 create table dbtest (
   id                        integer auto_increment not null,
   text                      varchar(255),
@@ -62,11 +53,8 @@ create table room (
 
 SET REFERENTIAL_INTEGRITY FALSE;
 
-<<<<<<< HEAD
 drop table if exists affiliated;
 
-=======
->>>>>>> something something
 drop table if exists bruker;
 
 drop table if exists dbtest;
