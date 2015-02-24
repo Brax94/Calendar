@@ -6,6 +6,7 @@ import play.db.ebean.Model;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 /**
  * Created by Elias Bragstad Hagen on 23.02.2015.
@@ -65,16 +66,38 @@ public class Event extends Model{
         return eventStarts;
     }
 
-    public void setEventStarts(Calendar eventStarts) {
-        this.eventStarts = eventStarts;
+    public void setEventStarts(String eventStarts) {
+        String[] eS = eventStarts.split("T");
+        String[] dS = eS[0].split("-");
+        String[] tS = eS[1].split(":");
+        Calendar cal = new GregorianCalendar();
+        cal.set(Calendar.YEAR, Integer.parseInt(dS[0]));
+        cal.set(Calendar.MONTH, Integer.parseInt(dS[1])-1);
+        cal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(dS[2]));
+
+        cal.set(Calendar.HOUR_OF_DAY, Integer.parseInt(tS[0]));
+        cal.set(Calendar.MINUTE, Integer.parseInt(tS[1]));
+
+        this.eventStarts = cal;
     }
 
     public Calendar getEventEnds() {
         return eventEnds;
     }
 
-    public void setEventEnds(Calendar eventEnds) {
-        this.eventEnds = eventEnds;
+    public void setEventEnds(String eventEnds) {
+        String[] eS = eventEnds.split("T");
+        String[] dS = eS[0].split("-");
+        String[] tS = eS[1].split(":");
+        Calendar cal = new GregorianCalendar();
+        cal.set(Calendar.YEAR, Integer.parseInt(dS[0]));
+        cal.set(Calendar.MONTH, Integer.parseInt(dS[1])-1);
+        cal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(dS[2]));
+
+        cal.set(Calendar.HOUR_OF_DAY, Integer.parseInt(tS[0]));
+        cal.set(Calendar.MINUTE, Integer.parseInt(tS[1]));
+
+        this.eventEnds = cal;
     }
 
 

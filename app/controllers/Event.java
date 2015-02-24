@@ -1,11 +1,13 @@
 package controllers;
 
+import models.HttpRequestData;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.data.Form;
 
 import java.util.List;
 
+import static models.HttpRequestData.*;
 import static play.data.Form.form;
 
 import static play.mvc.Results.ok;
@@ -25,6 +27,8 @@ public class Event extends Controller{
     public static Result saveNewEvent(){
         Form<models.Event> eventForm = form(models.Event.class).bindFromRequest();
         models.Event eventModel = eventForm.get();
+        eventModel.setEventStarts(new HttpRequestData().get("eStarts"));
+        eventModel.setEventEnds(new HttpRequestData().get("eEnds"));
         eventModel.save();
         return redirect(routes.Event.renderEvent("" + eventModel.getEventId()).absoluteURL(request()));
     }

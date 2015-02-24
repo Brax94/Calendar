@@ -8,6 +8,8 @@
                 @Html(event.getPlace())
                 <hr>
                 @Html(event.getText())
+                <hr>
+                @Html("" + event.getEventStarts().get(Calendar.DAY_OF_MONTH) + "." + (event.getEventStarts().get(Calendar.MONTH)+1) + "." + event.getEventStarts().get(Calendar.YEAR) );
             </div>
         </div>
     </div>
