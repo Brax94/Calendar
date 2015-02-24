@@ -6,6 +6,8 @@ import play.*;
 import play.data.Form;
 import play.mvc.*;
 
+import calendar.EventCalendar;
+
 import views.html.*;
 
 import java.util.ArrayList;
@@ -16,7 +18,7 @@ import static play.data.Form.form;
 public class Application extends Controller {
 
     public static Result index() {
-        return ok(layoutHtml.render("Kalender", layout.render(get())));
+        return ok(layoutHtml.render("Kalender", layout.render(get(), getCal())));
     }
 
     final static Form<Dbtest> test = form(Dbtest.class);
@@ -36,6 +38,12 @@ public class Application extends Controller {
             list.add(i.getText());
         }
         return list;
+    }
+
+    public static EventCalendar getCal() {
+        List<models.Event> eventList = models.Event.find.all();
+        EventCalendar calendar = new EventCalendar(eventList);
+        return calendar;
     }
 
 }
