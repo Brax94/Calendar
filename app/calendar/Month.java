@@ -27,7 +27,7 @@ public class Month {
             Calendar this_day = new GregorianCalendar();
             this_day.set(Calendar.YEAR, year);
             this_day.set(Calendar.MONTH, month);
-            this_day.set(Calendar.DAY_OF_MONTH, 1);
+            this_day.set(Calendar.DAY_OF_MONTH, i);
 
             ArrayList<models.Event> this_events = new ArrayList<models.Event>();
 
@@ -58,12 +58,12 @@ public class Month {
 
     @Override
     public String toString() {
-        String out = "<tr>";
+        String out = "<tr><div class = \"g-calendar\">";
         for (Day day : this.days) {
             out += day;
         }
 
-        out += "</tr>";
+        out += "</div></tr>";
 
         return out;
     }

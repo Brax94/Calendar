@@ -1,4 +1,4 @@
-@(content: java.util.List[String])
+@(content: java.util.List[String], cal: calendar.EventCalendar)
 @import calendar.EventCalendar
 <div class="container-fluid">
     <div class="row">
@@ -32,10 +32,11 @@
             </div>
         </div>
     </div>
+    }
     <div class = "row">
         <div class = "col-lg-12">
+            @Html(cal.toString())
         </div>
     </div>
-    }
 </div>
 

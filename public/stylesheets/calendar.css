@@ -1,0 +1,19 @@
+.todaysDate {
+    height: 100px;
+    width:160px;
+    background: rgba(200,200,200,0.7);
+    border:1px solid grey;
+    text-align:center;
+    min-height:150px;
+    height:auto;
+    vertical-align:middle;
+    padding:8px;
+    float:left;
+
+    margin: 5px;
+}
+
+.g-calendar {
+    margin-left: 5%;
+    margin-bottom: 50px;
+}
