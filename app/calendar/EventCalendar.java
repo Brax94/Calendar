@@ -22,7 +22,7 @@ public class EventCalendar {
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         Calendar cal = Calendar.getInstance();
-        this.this_month = new Month(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), events);
+        this.this_month = new Month(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH)+1, events);
     }
 
     @Override
