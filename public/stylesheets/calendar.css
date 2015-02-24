@@ -16,4 +16,9 @@
 .g-calendar {
     margin-left: 5%;
     margin-bottom: 50px;
+    padding: 1em;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) }
 }

@@ -18,7 +18,7 @@ import static play.data.Form.form;
 public class Application extends Controller {
 
     public static Result index() {
-        return ok(layoutHtml.render("Kalender", layout.render(get(), getCal())));
+        return ok(layoutHtml.render("Kalender", views.html.Frontpage.frontCalendar.render(getCal())));
     }
 
     final static Form<Dbtest> test = form(Dbtest.class);
