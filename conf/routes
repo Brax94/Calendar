@@ -9,6 +9,7 @@ POST        /get                 controllers.Application.save()
 #LogIn
 GET         /signin              controllers.LogIn.index()
 GET         /signup              controllers.LogIn.signUp()
+POST        /signup              controllers.LogIn.registerUser()
 
 #Event
 GET         /new                 controllers.Event.newEvent()

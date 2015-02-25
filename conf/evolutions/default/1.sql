@@ -14,9 +14,10 @@ create table affiliated (
 create table bruker (
   user_id                   bigint auto_increment not null,
   username                  varchar(255) not null,
-  passord                   varchar(255) not null,
-  fornavn                   varchar(255),
-  etternavn                 varchar(255),
+  password                  varchar(255) not null,
+  email                     varchar(255) not null,
+  first_name                varchar(255),
+  last_name                 varchar(255),
   constraint pk_bruker primary key (user_id))
 ;
 

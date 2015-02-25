@@ -1,5 +1,6 @@
 package models;
 
+import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
@@ -19,6 +20,9 @@ public class Bruker extends Model {
     private String username;
     @Column(nullable = false)
     private String password;
+    @Constraints.Email
+    @Column(nullable = false)
+    private String email;
     private String firstName;
     private String lastName;
 
