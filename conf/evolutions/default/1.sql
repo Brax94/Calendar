@@ -12,13 +12,12 @@ create table affiliated (
 ;
 
 create table bruker (
-  user_id                   bigint auto_increment not null,
   username                  varchar(255) not null,
   password                  varchar(255) not null,
   email                     varchar(255) not null,
   first_name                varchar(255),
   last_name                 varchar(255),
-  constraint pk_bruker primary key (user_id))
+  constraint pk_bruker primary key (username))
 ;
 
 create table dbtest (
@@ -47,6 +46,8 @@ create table room (
   constraint pk_room primary key (room_id))
 ;
 
+create sequence bruker_seq;
+
 
 
 
@@ -65,4 +66,6 @@ drop table if exists event;
 drop table if exists room;
 
 SET REFERENTIAL_INTEGRITY TRUE;
+
+drop sequence if exists bruker_seq;
 

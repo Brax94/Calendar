@@ -12,10 +12,6 @@ import javax.persistence.*;
 public class Bruker extends Model {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(nullable = false)
-
-    private long userId;
     @Column(nullable = false)
     private String username;
     @Column(nullable = false)
@@ -27,17 +23,16 @@ public class Bruker extends Model {
     private String lastName;
 
 
-
-    public long getUserId() {
-        return userId;
-    }
+    public static Finder<String, Bruker> find = new Finder<String, Bruker> (
+            String.class, Bruker.class
+    );
 
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String brukernavn) {
-        this.username = brukernavn;
+    public String getEmail() {
+        return email;
     }
 
     public String getPassword() {

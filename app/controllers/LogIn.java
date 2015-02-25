@@ -1,6 +1,7 @@
 package controllers;
 
 import models.Bruker;
+import models.HttpRequestData;
 import play.data.Form;
 import play.mvc.Result;
 import views.html.layoutHtml;
@@ -25,8 +26,17 @@ public class LogIn {
 
     public static Result registerUser() {
         Form<Bruker> userForm = form(Bruker.class).bindFromRequest();
+        System.out.println(userForm.get().getUsername());
         Bruker userModel = userForm.get();
         userModel.save();
+        return redirect(routes.Application.index().absoluteURL(request()));
+    }
+
+    public static Result logIn(){
+        String userName = new HttpRequestData().get("user");
+        String passWord = new HttpRequestData().get("passw");
+        Bruker bruker = Bruker.find.byId(userName);
+        System.out.println(userName);
         return redirect(routes.Application.index().absoluteURL(request()));
     }
 
