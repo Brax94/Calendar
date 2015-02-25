@@ -18,9 +18,9 @@ public class Bruker extends Model {
     @Column(nullable = false)
     private String username;
     @Column(nullable = false)
-    private String passord;
-    private String Fornavn;
-    private String Etternavn;
+    private String password;
+    private String firstName;
+    private String lastName;
 
 
 
@@ -36,27 +36,27 @@ public class Bruker extends Model {
         this.username = brukernavn;
     }
 
-    public String getPassord() {
-        return passord;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPassord(String passord) {
-        this.passord = passord;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getFornavn() {
-        return Fornavn;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFornavn(String fornavn) {
-        Fornavn = fornavn;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getEtternavn() {
-        return Etternavn;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setEtternavn(String etternavn) {
-        Etternavn = etternavn;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 }
