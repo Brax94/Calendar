@@ -8,12 +8,13 @@ POST        /get                 controllers.Application.save()
 
 #LogIn
 GET         /signin              controllers.LogIn.index()
+GET         /signup              controllers.LogIn.signUp()
 
 #Event
-GET         /new                controllers.Event.newEvent()
-POST        /new/save           controllers.Event.saveNewEvent()
-GET         /event/:id          controllers.Event.renderEvent(id)
-GET         /event              controllers.Event.getEvents()
+GET         /new                 controllers.Event.newEvent()
+POST        /new/save            controllers.Event.saveNewEvent()
+GET         /event/:id           controllers.Event.renderEvent(id)
+GET         /event               controllers.Event.getEvents()
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file        controllers.Assets.at(path="/public", file)

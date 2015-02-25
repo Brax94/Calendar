@@ -13,4 +13,9 @@ public class LogIn {
     public static Result index(){
         return ok(layoutHtml.render("SignIn", views.html.Login.login.render()));
     }
+
+    public static Result signUp(){
+        return ok(layoutHtml.render("SignUp", views.html.Login.signUp.render()));
+    }
+
 }
