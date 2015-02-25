@@ -4,6 +4,8 @@ import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by carlandreasjulsvoll on 24.02.15.
@@ -12,11 +14,10 @@ import javax.persistence.*;
 public class Bruker extends Model {
 
     @Id
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String username;
     @Column(nullable = false)
     private String password;
-    @Constraints.Email
     @Column(nullable = false)
     private String email;
     private String firstName;
@@ -57,5 +58,13 @@ public class Bruker extends Model {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public void create(Map map){
+        this.username = map.get("username").toString();
+        this.password = map.get("password").toString();
+        this.email = map.get("email").toString();
+        this.firstName = map.get("firstname").toString();
+        this.lastName = map.get("lastname").toString();
     }
 }

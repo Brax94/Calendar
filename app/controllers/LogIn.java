@@ -3,18 +3,19 @@ package controllers;
 import models.Bruker;
 import models.HttpRequestData;
 import play.data.Form;
+import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.layoutHtml;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static play.data.Form.form;
-import static play.mvc.Http.Context.Implicit.request;
-import static play.mvc.Results.ok;
-import static play.mvc.Results.redirect;
 
 /**
  * Created by eliasbragstadhagen on 21.02.15.
  */
-public class LogIn {
+public class LogIn extends Controller {
 
     public static Result index(){
         return ok(layoutHtml.render("SignIn", views.html.Login.login.render()));
@@ -24,19 +25,22 @@ public class LogIn {
         return ok(layoutHtml.render("SignUp", views.html.Login.signUp.render()));
     }
 
-    public static Result registerUser() {
-        Form<Bruker> userForm = form(Bruker.class).bindFromRequest();
-        System.out.println(userForm.get().getUsername());
-        Bruker userModel = userForm.get();
-        userModel.save();
+    public static Result logIn(){
+        HashMap map = new HttpRequestData();
+        Bruker bruker = Bruker.find.byId(map.get("user").toString());
+        System.out.println(bruker.getFirstName());
         return redirect(routes.Application.index().absoluteURL(request()));
     }
 
-    public static Result logIn(){
-        String userName = new HttpRequestData().get("user");
-        String passWord = new HttpRequestData().get("passw");
-        Bruker bruker = Bruker.find.byId(userName);
-        System.out.println(userName);
+    public static Result registerUser(){
+        Form<Bruker> brukerForm = form(Bruker.class).bindFromRequest();
+        if(brukerForm.hasErrors()){
+            System.out.println("has error");
+        }
+        Bruker bruker = new Bruker();
+        bruker.create(brukerForm.data());
+        bruker.save();
+        System.out.println(bruker.getUsername());
         return redirect(routes.Application.index().absoluteURL(request()));
     }
 
