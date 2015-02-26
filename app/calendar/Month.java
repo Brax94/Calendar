@@ -23,17 +23,21 @@ public class Month {
         this.month = month;
         this.days = new ArrayList<Day>();
 
+        int Y = Calendar.YEAR, M = Calendar.MONTH, D = Calendar.DAY_OF_MONTH;
+
         for (int i = 1; i <= Month.numbDays(month); i++) {
             Calendar this_day = new GregorianCalendar();
-            this_day.set(Calendar.YEAR, year);
-            this_day.set(Calendar.MONTH, month);
-            this_day.set(Calendar.DAY_OF_MONTH, i);
+            this_day.set(Y, year);
+            this_day.set(M, month);
+            this_day.set(D, i);
 
             ArrayList<models.Event> this_events = new ArrayList<models.Event>();
 
 
             for (models.Event event : events) {
-                if (event.getEventStarts().equals(this_day)) { this_events.add(event);}
+                if (event.getEventStarts().get(Y) == this_day.get(Y)
+                        && event.getEventStarts().get(M) == this_day.get(M)
+                        && event.getEventStarts().get(D) == this_day.get(D)) { this_events.add(event);}
             }
 
             this.days.add(new Day(this_day, this_events));
@@ -59,6 +63,7 @@ public class Month {
     @Override
     public String toString() {
         String out = "<tr><div class = \"g-calendar\">";
+
         for (Day day : this.days) {
             out += day;
         }

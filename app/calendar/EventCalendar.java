@@ -11,6 +11,7 @@ import java.util.List;
 /**
  * Created by valdemarrolfsen on 24.02.15.
  */
+
 public class EventCalendar {
 
     List<models.Event> events;
@@ -22,7 +23,7 @@ public class EventCalendar {
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         Calendar cal = Calendar.getInstance();
-        this.this_month = new Month(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH)+1, events);
+        this.this_month = new Month(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), events);
     }
 
     @Override
