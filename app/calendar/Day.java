@@ -24,13 +24,13 @@ public class Day {
     public String toString() {
         String out = "";
         out += "<td class = \"daySquare\" >";
-        out += "<div class = \"todaysDate\" >" + date.getTime() + "</div>";
+        out += "<div class = \"todaysDate\" >" + date.getTime();
 
         for (models.Event event : events ) {
-            out += "<div class = \"event\" >" + event.getTitle() + "</div>";
+            out += "<a href=\"/event/" + event.getEventId() + "\"><div class = \"event\" >" + event.getTitle() + "</div></a>";
         }
 
-        out += "</td>";
+        out += "</div></td>";
 
         return out;
     }
