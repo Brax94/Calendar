@@ -21,6 +21,10 @@ public class Room extends Model{
     @Column(nullable = false)
     private int roomSize;
 
+    public static Finder<Long, Room> find = new Finder<Long, Room> (
+            Long.class, Room.class
+    );
+
     public long getRoomId() {
         return roomId;
     }

@@ -28,7 +28,19 @@ public class LogIn extends Controller {
     public static Result logIn(){
         HashMap map = new HttpRequestData();
         Bruker bruker = Bruker.find.byId(map.get("user").toString());
-        System.out.println(bruker.getFirstName());
+        if(!bruker.getPassword().equals(map.get("password"))){
+            //TODO fiks errror message som blir renderet tilbake i form
+            System.out.println("error");
+            System.out.println("inp pass:" + map.get("password"));
+            System.out.println("exp pass:" + bruker.getPassword());
+
+        }
+        else{
+            session().clear();
+            session("User", bruker.getUsername());
+            //session().put("User", bruker.getUsername());
+            System.out.println(session("User") + "success" + session().get("User"));
+        }
         return redirect(routes.Application.index().absoluteURL(request()));
     }
 

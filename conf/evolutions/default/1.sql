@@ -32,6 +32,7 @@ create table event (
   text                      varchar(255),
   place                     varchar(255),
   creator                   bigint,
+  room_room_id              bigint,
   event_starts              timestamp not null,
   event_ends                timestamp not null,
   date_made                 timestamp not null,
@@ -48,6 +49,8 @@ create table room (
 
 create sequence bruker_seq;
 
+alter table event add constraint fk_event_room_1 foreign key (room_room_id) references room (room_id) on delete restrict on update restrict;
+create index ix_event_room_1 on event (room_room_id);
 
 
 

@@ -23,6 +23,8 @@ public class Event extends Model{
     private String text;
     private String place;
     private long creator; //TODO: lag constructor
+    @OneToOne
+    private Room room;
 
     @Column(nullable = false)
     private Calendar eventStarts;

@@ -20,6 +20,7 @@
                 <li><a href="/event">My Events</a></li>
                 <li><a href="/new">New</a></li>
             </ul>
+            @if(session.get("User") == null){
             <form class="navbar-form navbar-right" action="/signin" method="POST" name="login">
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="Username" name="user">
@@ -27,9 +28,17 @@
                 </div>
                 <button type="submit" class="btn btn-success">Log In</button>
             </form>
+            }
+
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/signin">LogIn</a></li>
-                <li><a href="/signup">Sign Up</a></li>
+                @if(session.get("User") != null){
+                    @System.out.println("Sucessfull")
+                    <p class="navbar-text">Velkommen, @Bruker.find.byId(session.get("User")).getFirstName</p>
+                }
+                @if(session.get("User") == null) {
+                    <li><a href="/signin">LogIn</a></li>
+                    <li><a href="/signup">Sign Up</a></li>
+                }
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
