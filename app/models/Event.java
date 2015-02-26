@@ -8,6 +8,8 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import static play.mvc.Controller.session;
+
 /**
  * Created by Elias Bragstad Hagen on 23.02.2015.
  */
@@ -22,7 +24,8 @@ public class Event extends Model{
     private String title;
     private String text;
     private String place;
-    private long creator; //TODO: lag constructor
+    @OneToOne
+    private Bruker creator; //TODO: lag constructor
     @OneToOne
     private Room room;
 
@@ -36,6 +39,22 @@ public class Event extends Model{
     public static Finder<Long, Event> find = new Finder<Long, Event> (
             Long.class, Event.class
     );
+
+
+    public Bruker getCreator() {
+        return creator;
+    }
+    public void setCreator(Bruker bruker){
+        this.creator = bruker;
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public Timestamp getDateMade() {
+        return dateMade;
+    }
 
     public String getTitle() {
         return title;

@@ -1,5 +1,6 @@
 package controllers;
 
+import models.Bruker;
 import models.HttpRequestData;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -22,15 +23,16 @@ public class Event extends Controller{
     }
 
     public static Result newEvent(){
-        return ok(views.html.layoutHtml.render("New Event", views.html.Event.newEvent.render()));
+        return Bruker.signedIn(ok(views.html.layoutHtml.render("New Event", views.html.Event.newEvent.render())));
     }
     public static Result saveNewEvent(){
         Form<models.Event> eventForm = form(models.Event.class).bindFromRequest();
         models.Event eventModel = eventForm.get();
         eventModel.setEventStarts(new HttpRequestData().get("eStarts"));
         eventModel.setEventEnds(new HttpRequestData().get("eEnds"));
+        eventModel.setCreator(Bruker.find.byId(session().get("User")));
         eventModel.save();
-        return redirect(routes.Event.renderEvent("" + eventModel.getEventId()).absoluteURL(request()));
+        return Bruker.signedIn(redirect(routes.Event.renderEvent("" + eventModel.getEventId()).absoluteURL(request())));
     }
 
     public static models.Event getEvent(String eventID){
@@ -40,6 +42,6 @@ public class Event extends Controller{
     }
     public static Result getEvents(){
         List<models.Event> eventList = models.Event.find.all();
-        return ok(views.html.layoutHtml.render("MyEvents", views.html.Event.myEvents.render(eventList)));
+        return Bruker.signedIn(ok(views.html.layoutHtml.render("MyEvents", views.html.Event.myEvents.render(eventList))));
     }
 }

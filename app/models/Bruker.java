@@ -1,11 +1,17 @@
 package models;
 
+import controllers.routes;
+import play.mvc.Result;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
 import java.util.HashMap;
 import java.util.Map;
+
+import static play.mvc.Controller.request;
+import static play.mvc.Controller.session;
+import static play.mvc.Results.redirect;
 
 /**
  * Created by carlandreasjulsvoll on 24.02.15.
@@ -24,7 +30,7 @@ public class Bruker extends Model {
     private String lastName;
 
 
-    public static Finder<String, Bruker> find = new Finder<String, Bruker> (
+    public static Model.Finder<String, Bruker> find = new Model.Finder<> (
             String.class, Bruker.class
     );
 
@@ -66,5 +72,19 @@ public class Bruker extends Model {
         this.email = map.get("email").toString();
         this.firstName = map.get("firstname").toString();
         this.lastName = map.get("lastname").toString();
+    }
+
+    public static boolean signedIn(){
+        if(session("User") == null) {
+            return false;
+        }
+        return true;
+    }
+
+    public static Result signedIn(Result result){
+        if(session("User") == null) {
+            return redirect(controllers.routes.LogIn.index().absoluteURL(request()));
+        }
+        return result;
     }
 }

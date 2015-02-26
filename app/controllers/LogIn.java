@@ -56,5 +56,10 @@ public class LogIn extends Controller {
         return redirect(routes.Application.index().absoluteURL(request()));
     }
 
+    public static Result logOut(){
+        session().clear();
+        return redirect(routes.LogIn.index().absoluteURL(request()));
+    }
+
 
 }
