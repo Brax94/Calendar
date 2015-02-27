@@ -49,11 +49,16 @@ public class LogIn extends Controller {
         if(brukerForm.hasErrors()){
             System.out.println("has error");
         }
+        if(Bruker.find.byId(brukerForm.data().get("username")) != null){
+            //TODO back into form, errormessage existing username..
+            return redirect(routes.LogIn.signUp().absoluteURL(request()));
+        }
+        else{
         Bruker bruker = new Bruker();
         bruker.create(brukerForm.data());
         bruker.save();
         System.out.println(bruker.getUsername());
-        return redirect(routes.Application.index().absoluteURL(request()));
+        return redirect(routes.Application.index().absoluteURL(request()));}
     }
 
     public static Result logOut(){
