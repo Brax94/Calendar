@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by valdemarrolfsen on 24.02.15.
@@ -58,6 +62,29 @@ public class Month {
 
     public Month prev() {
         return new Month(this.year, this.month--, new ArrayList<models.Event>());
+    }
+
+
+    public static int getNumberOfPushes(int year, int month) throws ParseException{
+        String input_date = "";
+        if(month<10){
+            input_date="01/0"+month+"/"+year;
+        }else{
+            input_date="01/"+month+"/"+year;
+        }
+        SimpleDateFormat format1=new SimpleDateFormat("dd/MM/yyyy");
+        Date dt1=format1.parse(input_date);
+        DateFormat format2=new SimpleDateFormat("EEEE");
+        String finalDay=format2.format(dt1);
+        switch(finalDay) {
+            case "mandag":return 0;
+            case "tirsdag": return 1;
+            case "onsdag": return 2;
+            case "torsdag": return 3;
+            case "fredag": return 4;
+            case "lørdag": return 5;
+            case "søndag": return 6; }
+        return -1; //-1 er error
     }
 
     @Override
