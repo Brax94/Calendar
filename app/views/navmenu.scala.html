@@ -33,12 +33,12 @@
             }
 
             <ul class="nav navbar-nav navbar-right">
-                @if(session.get("User") != null){
-                    @System.out.println("Sucessfull")
+                @if(Bruker.signedIn() == true){
+                    @System.out.println("Sucessfull" + session.get("User"))
                     <p class="navbar-text">Velkommen, @Bruker.find.byId(session.get("User")).getFirstName</p>
                     <li><a href="/signout">Log Out</a></li>
                 }
-                @if(session.get("User") == null) {
+                @if(Bruker.signedIn() == false) {
                     <li><a href="/signin">Log In</a></li>
                     <li><a href="/signup">Sign Up</a></li>
                 }

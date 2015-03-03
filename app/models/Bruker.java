@@ -75,7 +75,10 @@ public class Bruker extends Model {
     }
 
     public static boolean signedIn(){
-        if(session("User") == null) {
+        if(session("User") == null){
+            return false;
+        }
+        if(Bruker.find.byId(session("User")) == null) {
             return false;
         }
         return true;
