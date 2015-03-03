@@ -30,7 +30,7 @@ public class Bruker extends Model {
     private String lastName;
 
 
-    public static Model.Finder<String, Bruker> find = new Model.Finder<> (
+    public static Model.Finder<String, Bruker> find = new Model.Finder<String, Bruker> (
             String.class, Bruker.class
     );
 
