@@ -88,6 +88,9 @@ public class Bruker extends Model {
         if(session("User") == null) {
             return redirect(controllers.routes.LogIn.index().absoluteURL(request()));
         }
+        if(Bruker.find.byId(session("User")) == null) {
+            return redirect(controllers.routes.LogIn.index().absoluteURL(request()));
+        }
         return result;
     }
 }

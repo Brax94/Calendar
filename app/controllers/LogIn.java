@@ -38,17 +38,11 @@ public class LogIn extends Controller {
             Bruker bruker = Bruker.find.byId(map.get("user").toString());
 
             if(!bruker.getPassword().equals(map.get("password"))) {
-                //TODO fiks errror message som blir renderet tilbake i form
-                System.out.println("error");
-                System.out.println("inp pass:" + map.get("password"));
-                System.out.println("exp pass:" + bruker.getPassword());
                 return redirect(routes.LogIn.indexError().absoluteURL(request()));
             }
             else{
                 session().clear();
                 session("User", bruker.getUsername());
-                //session().put("User", bruker.getUsername());
-                System.out.println(session("User") + "success" + session().get("User"));
             }
         }
         else{
@@ -63,14 +57,12 @@ public class LogIn extends Controller {
             System.out.println("has error");
         }
         if(Bruker.find.byId(brukerForm.data().get("username")) != null){
-            //TODO back into form, errormessage existing username..
             return redirect(routes.LogIn.signUpError().absoluteURL(request()));
         }
         else{
         Bruker bruker = new Bruker();
         bruker.create(brukerForm.data());
         bruker.save();
-        System.out.println(bruker.getUsername());
         return redirect(routes.Application.index().absoluteURL(request()));}
     }
 

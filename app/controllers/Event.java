@@ -19,7 +19,7 @@ import static play.mvc.Results.ok;
 public class Event extends Controller{
 
     public static Result renderEvent(String eventID){
-        return ok(views.html.layoutHtml.render("Event", views.html.Event.event.render(getEvent(eventID))));
+        return Bruker.signedIn(ok(views.html.layoutHtml.render("Event", views.html.Event.event.render(getEvent(eventID)))));
     }
 
     public static Result newEvent(){
@@ -41,7 +41,7 @@ public class Event extends Controller{
         return eventModel;
     }
     public static Result getEvents(){
-        List<models.Event> eventList = models.Event.find.all();
+        List<models.Event> eventList = models.Event.find.where().eq("creator", Bruker.find.byId(session("User"))).findList();
         return Bruker.signedIn(ok(views.html.layoutHtml.render("MyEvents", views.html.Event.myEvents.render(eventList))));
     }
 }
