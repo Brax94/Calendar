@@ -4,6 +4,8 @@
 
 # Home page
 GET         /                    controllers.Application.index()
+GET         /next                controllers.Application.next()
+GET         /prev                controllers.Application.prev()
 POST        /get                 controllers.Application.save()
 
 #LogIn

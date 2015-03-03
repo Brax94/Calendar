@@ -17,6 +17,9 @@ import static play.data.Form.form;
 
 public class Application extends Controller {
 
+    public static List<models.Event> eventList = models.Event.find.all();
+    public static EventCalendar calendar = new EventCalendar(eventList);
+
     public static Result index() {
         return ok(layoutHtml.render("Kalender", views.html.Frontpage.frontCalendar.render(getCal())));
     }
@@ -31,6 +34,16 @@ public class Application extends Controller {
         return index();
     }
 
+    public static Result next() {
+        calendar.next();
+        return ok(layoutHtml.render("Kalender", views.html.Frontpage.frontCalendar.render(calendar)));
+    }
+
+    public static Result prev() {
+        calendar.prev();
+        return ok(layoutHtml.render("Kalender", views.html.Frontpage.frontCalendar.render(calendar)));
+    }
+
     public static List<String> get(){
         List<String> list = new ArrayList<String>();
         List<Dbtest> dbtest = Ebean.find(Dbtest.class).findList();
@@ -41,8 +54,6 @@ public class Application extends Controller {
     }
 
     public static EventCalendar getCal() {
-        List<models.Event> eventList = models.Event.find.all();
-        EventCalendar calendar = new EventCalendar(eventList);
         return calendar;
     }
 

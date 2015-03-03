@@ -1,6 +1,22 @@
 @(cal: calendar.EventCalendar)
 @import calendar.EventCalendar
 <div class="container-fluid">
+    <div class = "row monthDayBox">
+        <div class = "col-lg-4 text-right monthNames">
+            <a href="/prev"><h1>@cal.getPrevMonthName()</h1></a>
+        </div>
+        <div class = "col-lg-4 text-center thisMonthName">
+            <h1>@cal.getMonthName()</h1>
+        </div>
+        <div class = "col-lg-4 monthNames">
+            <a href="/next"><h1>@cal.getNextMonthName()</h1></a>
+        </div>
+    </div>
+    <div class = "row monthDayBox">
+        <div class = "col-lg-12 weekDays">
+            <p>Mandag Tirsdag Onsdag Torsdag Fredag Lørdag Søndag</p>
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-12">
         @Html(cal.toString())

@@ -1,3 +1,21 @@
+.monthDayBox {
+    background: rgba(200,200,200,0.7);
+}
+
+.weekDays {
+    font-size: 20px;
+    word-spacing: 95px;
+    text-align: center;
+}
+
+.monthDayBox .monthNames :hover {
+    color: #aaa;
+}
+
+.monthDayBox .thisMonthName:hover h1 {
+    content: 'I dag';
+}
+
 .todaysDate {
     height: 100px;
     width:160px;
