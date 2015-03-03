@@ -12,6 +12,8 @@ GET         /signup              controllers.LogIn.signUp()
 POST        /signup              controllers.LogIn.registerUser()
 POST        /signin              controllers.LogIn.logIn()
 GET         /signout             controllers.LogIn.logOut()
+GET         /signuperror         controllers.LogIn.signUpError()
+GET         /signinerror         controllers.LogIn.indexError()
 
 #Event
 GET         /new                 controllers.Event.newEvent()

@@ -1,10 +1,13 @@
-
+@(error: String)
 <div class="container-fluid">
         <div class="row">
             <div class="col-md-4 col-md-offset-4">
                 <div class="box">
                     <h2><strong><p class="text-center">Please sign in</p></strong></h2>
                     <hr>
+                    @if(error != null) {
+                        <p class="text-center" style="color : red">@Html(error)</p>
+                    }
                     <form action="/signin" method="POST" name="login">
                         <div class="form-group">
                             <lable for="useid" class="sr-only">Username</lable>

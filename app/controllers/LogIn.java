@@ -18,11 +18,18 @@ import static play.data.Form.form;
 public class LogIn extends Controller {
 
     public static Result index(){
-        return ok(layoutHtml.render("SignIn", views.html.Login.login.render()));
+        return ok(layoutHtml.render("SignIn", views.html.Login.login.render(null)));
     }
 
+    public static Result indexError(){
+        return ok(layoutHtml.render("SignIn", views.html.Login.login.render("Wrong username/password")));
+    }
+
+    public static Result signUpError(){
+        return ok(layoutHtml.render("SignUp", views.html.Login.signUp.render("Username Already Exists")));
+    }
     public static Result signUp(){
-        return ok(layoutHtml.render("SignUp", views.html.Login.signUp.render()));
+        return ok(layoutHtml.render("SignUp", views.html.Login.signUp.render(null)));
     }
 
     public static Result logIn(){
@@ -35,6 +42,7 @@ public class LogIn extends Controller {
                 System.out.println("error");
                 System.out.println("inp pass:" + map.get("password"));
                 System.out.println("exp pass:" + bruker.getPassword());
+                return redirect(routes.LogIn.indexError().absoluteURL(request()));
             }
             else{
                 session().clear();
@@ -44,7 +52,7 @@ public class LogIn extends Controller {
             }
         }
         else{
-            return redirect(routes.LogIn.index().absoluteURL(request()));
+            return redirect(routes.LogIn.indexError().absoluteURL(request()));
         }
         return redirect(routes.Application.index().absoluteURL(request()));
     }
@@ -56,7 +64,7 @@ public class LogIn extends Controller {
         }
         if(Bruker.find.byId(brukerForm.data().get("username")) != null){
             //TODO back into form, errormessage existing username..
-            return redirect(routes.LogIn.signUp().absoluteURL(request()));
+            return redirect(routes.LogIn.signUpError().absoluteURL(request()));
         }
         else{
         Bruker bruker = new Bruker();
