@@ -20,11 +20,13 @@ public class Month {
     int month;
 
     ArrayList<Day> days;
+    List<Event> events;
 
     public Month(int year, int month, List<models.Event> events) {
 
         this.year = year;
         this.month = month;
+        this.events = events;
         this.days = new ArrayList<Day>();
 
         int Y = Calendar.YEAR, M = Calendar.MONTH, D = Calendar.DAY_OF_MONTH;
@@ -57,11 +59,11 @@ public class Month {
     }
 
     public Month next() {
-        return new Month(this.year, this.month++, new ArrayList<models.Event>());
+        return new Month(this.year, this.month + 1, this.events);
     }
 
     public Month prev() {
-        return new Month(this.year, this.month--, new ArrayList<models.Event>());
+        return new Month(this.year, this.month - 1, this.events);
     }
 
 
