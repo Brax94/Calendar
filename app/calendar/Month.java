@@ -52,6 +52,8 @@ public class Month {
             this.days.add(new Day(this_day, this_events));
         }
 
+        System.out.println(numb_push);
+
         if (month > 12) {
             this.month = 1;
             this.year++;
@@ -73,19 +75,22 @@ public class Month {
     public static int getNumberOfPushes(int dayOfWeek){
 
         switch(dayOfWeek) {
-            case 1:return 0;
-            case 2: return 1;
-            case 3: return 2;
-            case 4: return 3;
-            case 5: return 4;
-            case 6: return 5;
-            case 0: return 6; }
+            case 2:return 0;
+            case 3: return 1;
+            case 4: return 2;
+            case 5: return 3;
+            case 6: return 4;
+            case 7: return 5;
+            case 1: return 6; }
         return -1; //-1 er error
     }
 
     @Override
     public String toString() {
         String out = "<tr><div class = \"g-calendar\">";
+
+        for (int i = 0; i<numb_push; i++)
+            out += "<div class = \"emptyDate\"></div>";
 
         for (Day day : this.days) {
             out += day;

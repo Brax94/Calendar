@@ -24,7 +24,7 @@ public class Day {
     public String toString() {
         String out = "";
         out += "<td class = \"daySquare\" >";
-        out += "<div class = \"todaysDate\" >" + date.getTime();
+        out += "<div class = \"todaysDate\" >" + date.get(Calendar.DAY_OF_MONTH);
 
         for (models.Event event : events ) {
             out += "<a href=\"/event/" + event.getEventId() + "\"><div class = \"event\" >" + event.getTitle() + "</div></a>";

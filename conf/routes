@@ -23,5 +23,9 @@ POST        /new/save            controllers.Event.saveNewEvent()
 GET         /event/:id           controllers.Event.renderEvent(id)
 GET         /event               controllers.Event.getEvents()
 
+#Admin
+GET         /admin               controllers.Admin.index()
+POST        /admin               controllers.Admin.add()
+
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file        controllers.Assets.at(path="/public", file)
