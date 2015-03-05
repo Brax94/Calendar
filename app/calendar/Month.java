@@ -18,6 +18,7 @@ public class Month {
 
     int year;
     int month;
+    int numb_push;
 
     ArrayList<Day> days;
     List<Event> events;
@@ -36,6 +37,8 @@ public class Month {
             this_day.set(Y, year);
             this_day.set(M, month);
             this_day.set(D, i);
+            if (i==1)
+                this.numb_push = this.getNumberOfPushes(this_day.get(Calendar.DAY_OF_WEEK));
 
             ArrayList<models.Event> this_events = new ArrayList<models.Event>();
 
@@ -67,25 +70,16 @@ public class Month {
     }
 
 
-    public static int getNumberOfPushes(int year, int month) throws ParseException{
-        String input_date = "";
-        if(month<10){
-            input_date="01/0"+month+"/"+year;
-        }else{
-            input_date="01/"+month+"/"+year;
-        }
-        SimpleDateFormat format1=new SimpleDateFormat("dd/MM/yyyy");
-        Date dt1=format1.parse(input_date);
-        DateFormat format2=new SimpleDateFormat("EEEE");
-        String finalDay=format2.format(dt1);
-        switch(finalDay) {
-            case "mandag":return 0;
-            case "tirsdag": return 1;
-            case "onsdag": return 2;
-            case "torsdag": return 3;
-            case "fredag": return 4;
-            case "lørdag": return 5;
-            case "søndag": return 6; }
+    public static int getNumberOfPushes(int dayOfWeek){
+
+        switch(dayOfWeek) {
+            case 1:return 0;
+            case 2: return 1;
+            case 3: return 2;
+            case 4: return 3;
+            case 5: return 4;
+            case 6: return 5;
+            case 0: return 6; }
         return -1; //-1 er error
     }
 
