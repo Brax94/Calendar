@@ -2,6 +2,7 @@ package controllers;
 
 import models.Bruker;
 import models.HttpRequestData;
+import models.Room;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.data.Form;
@@ -23,7 +24,8 @@ public class Event extends Controller{
     }
 
     public static Result newEvent(){
-        return Bruker.signedIn(ok(views.html.layoutHtml.render("New Event", views.html.Event.newEvent.render())));
+        List<Room> rooms = Room.find.all();
+        return Bruker.signedIn(ok(views.html.layoutHtml.render("New Event", views.html.Event.newEvent.render(rooms))));
     }
     public static Result saveNewEvent(){
         Form<models.Event> eventForm = form(models.Event.class).bindFromRequest();

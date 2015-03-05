@@ -1,0 +1,51 @@
+@(rooms: List[Room])
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="box">
+                <h2><strong><p class="text-center">New Room</p></strong></h2>
+                <hr>
+                <form action="/admin" method="POST" name="bruker">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="start-id">
+                                <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                            </span>
+                            <lable for="useid" class="sr-only">Username</lable>
+                            <input type="text" placeholder="Room name" id="usern" name="name" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+                            </span>
+                            <lable for="email" class="sr-only">Email</lable>
+                                <input type="text" placeholder="Description" id="room_size" name="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon" id="start-id">
+                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                            </span>
+                            <lable for="password" class="sr-only">password</lable>
+                            <input type="number" id="room_size" name="room_size" placeholder="Room Size" class="form-control">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success center-block form-control">Add room</button>
+                </form>
+            </div>
+        </div>
+        <div class ="col-lg-4">
+            <div class="box">
+                <h2><strong><p class="text-center"> My Rooms: </p></strong></h2>
+                <hr>
+                @for(i <- rooms){
+                    <p>@i.getName()</p>
+                    <hr>
+                }
+            </div>
+        </div>
+    </div>
+</div>
