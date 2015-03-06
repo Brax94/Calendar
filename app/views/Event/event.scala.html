@@ -1,4 +1,4 @@
-@(event: models.Event, affiliation: models.Affiliated)
+@(event: models.Event, affiliation: models.Affiliated, invList: List[Affiliated])
 <div class="conteiner-fluid">
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
@@ -28,7 +28,7 @@
                         <button type="submit" class="form-control btn btn-success"> Invite </button>
                     </div>
                 </form>}
-                @System.out.println(affiliation.getStatus().toString())
+                @System.out.println(affiliation.getBruker().getLastName())
                 <form>
                     <label class="radio-inline">
                         <input type="radio" name="status" id="inlineRadio1" value="ATTENDING"> Attending
@@ -40,6 +40,11 @@
                         <input type="radio" name="status" id="inlineRadio3" value="NOT_ATTENDING"> Not attending
                     </label>
                 </form>
+                <hr>
+                @for(i <- invList){
+                    @Html(i.getBruker().getFirstName()) @i.getStatus().toString()
+                    <br>
+                }
             </div>
         </div>
     </div>

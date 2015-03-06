@@ -21,7 +21,7 @@ import static play.mvc.Results.ok;
 public class Event extends Controller{
 
     public static Result renderEvent(String eventID){
-        return Bruker.signedIn(ok(views.html.layoutHtml.render("Event", views.html.Event.event.render(getEvent(eventID), getAffiliation(eventID)))));
+        return Bruker.signedIn(ok(views.html.layoutHtml.render("Event", views.html.Event.event.render(getEvent(eventID), getAffiliation(eventID), getAffiliated(eventID)))));
     }
 
     public static Result newEvent(){
@@ -35,6 +35,9 @@ public class Event extends Controller{
         eventModel.setEventEnds(new HttpRequestData().get("eEnds"));
         eventModel.setCreator(Bruker.find.byId(session().get("User")));
         eventModel.save();
+        Affiliated affiliated = new Affiliated(Bruker.find.byId(session("User")), eventModel);
+        affiliated.setStatus(Affiliated.Status.ATTENDING);
+        affiliated.save();
         return Bruker.signedIn(redirect(routes.Event.renderEvent("" + eventModel.getEventId()).absoluteURL(request())));
     }
 
@@ -56,10 +59,15 @@ public class Event extends Controller{
         models.Event event = models.Event.find.byId(Long.parseLong(eventID));
         Affiliated affiliated = new Affiliated(bruker, event);
         affiliated.save();
-        return renderEvent(eventID);
+        return redirect(routes.Event.renderEvent(eventID).absoluteURL(request()));
     }
 
     public static Affiliated getAffiliation(String eventID){
         return Affiliated.find.where().eq("bruker", Bruker.find.byId(session("User"))).where().eq("event", models.Event.find.byId(Long.parseLong(eventID))).findUnique();
+    }
+
+    public static List<Affiliated> getAffiliated(String eventID){
+        List<Affiliated> affiliatedList = Affiliated.find.where().eq("event", models.Event.find.byId(Long.parseLong(eventID))).findList();
+        return affiliatedList;
     }
 }
