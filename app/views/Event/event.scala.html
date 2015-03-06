@@ -10,41 +10,46 @@
                 <hr>
                 @Html(event.getText())
                 <hr>
-                @Html("" + event.getEventStarts().get(Calendar.DAY_OF_MONTH) + "." + (event.getEventStarts().get(Calendar.MONTH)+1) + "." + event.getEventStarts().get(Calendar.YEAR) );
+                @Html("" + event.getEventStarts().get(Calendar.DAY_OF_MONTH) + "." + (event.getEventStarts().get(Calendar.MONTH) + 1) + "." + event.getEventStarts().get(Calendar.YEAR))
+                ;
                 @Html("" + event.getEventStarts().get(Calendar.HOUR_OF_DAY) + ":" + event.getEventStarts().get(Calendar.MINUTE))
                 @Html(event.getCreator().getFirstName)
                 @Html(event.getCreator().getLastName)
 
-                @if(event.getCreator.equals(Bruker.find.byId(session.get("User")))){
-                <form action="/inviteUser/@event.getEventId" method="POST">
-                    <div class="form-group">
-                        <lable for="invUser">Invite User</lable>
-                        <div class="input-group">
-                            <span class="input-group-addon" id="invUser">
-                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                            </span>
-                            <input type="text" class="form-control" id="invUser" name="invUser" aria-describedby="invUser" placeholder="User">
+                @if(event.getCreator.equals(Bruker.find.byId(session.get("User")))) {
+                    <form action="/inviteUser/@event.getEventId" method="POST">
+                        <div class="form-group">
+                            <lable for="invUser">Invite User</lable>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="invUser">
+                                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                                </span>
+                                <input type="text" class="form-control" id="invUser" name="invUser" aria-describedby="invUser" placeholder="User">
+                            </div>
+                            <button type="submit" class="form-control btn btn-success"> Invite </button>
                         </div>
-                        <button type="submit" class="form-control btn btn-success"> Invite </button>
-                    </div>
-                </form>}
+                    </form>
+                }
                 @System.out.println(affiliation.getBruker().getLastName())
-                <form>
-                    <label class="radio-inline">
-                        <input type="radio" name="status" id="inlineRadio1" value="ATTENDING"> Attending
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="status" id="inlineRadio2" value="MAYBE"> Maybe
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="status" id="inlineRadio3" value="NOT_ATTENDING"> Not attending
-                    </label>
+                <form method="POST" action="/updateStatus/@affiliation.getAffiliatedId()">
+                    <div class="btn-group" data-toggle="buttons">
+                        <label class="radio-inline btn btn-success">
+                            <input type="radio" name="status" id="inlineRadio1" value="ATTENDING"> Attending
+                        </label>
+                        <label class="radio-inline btn btn-success">
+                            <input type="radio" name="status" id="inlineRadio2" value="MAYBE"> Maybe
+                        </label>
+                        <label class="radio-inline btn btn-success">
+                            <input type="radio" name="status" id="inlineRadio3" value="NOT_ATTENDING"> Not attending
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-inline btn-success"> Update Status</button>
                 </form>
                 <hr>
-                @for(i <- invList){
+                @for(i <- invList) {
                     @Html(i.getBruker().getFirstName()) @i.getStatus().toString()
                     <br>
-                }
+                    }
             </div>
         </div>
     </div>

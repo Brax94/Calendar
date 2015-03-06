@@ -23,8 +23,13 @@ public class Affiliated extends Model{
     @Column(nullable = false)
     private Calendar alarmTime = null;
 
-    public static Finder<Bruker, Affiliated> find = new Model.Finder<Bruker, Affiliated> (
-            Bruker.class, Affiliated.class
+    public long getAffiliatedId() {
+        return affiliatedId;
+    }
+
+    public static Finder<Long, Affiliated> find = new Model.Finder<Long, Affiliated> (
+            Long.class, Affiliated.class
+
     );
 
     public enum Status{

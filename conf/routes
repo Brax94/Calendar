@@ -3,30 +3,31 @@
 # ~~~~
 
 # Home page
-GET         /                    controllers.Application.index()
-GET         /next                controllers.Application.next()
-GET         /prev                controllers.Application.prev()
-POST        /get                 controllers.Application.save()
+GET         /                           controllers.Application.index()
+GET         /next                       controllers.Application.next()
+GET         /prev                       controllers.Application.prev()
+POST        /get                        controllers.Application.save()
 
 #LogIn
-GET         /signin              controllers.LogIn.index()
-GET         /signup              controllers.LogIn.signUp()
-POST        /signup              controllers.LogIn.registerUser()
-POST        /signin              controllers.LogIn.logIn()
-GET         /signout             controllers.LogIn.logOut()
-GET         /signuperror         controllers.LogIn.signUpError()
-GET         /signinerror         controllers.LogIn.indexError()
+GET         /signin                     controllers.LogIn.index()
+GET         /signup                     controllers.LogIn.signUp()
+POST        /signup                     controllers.LogIn.registerUser()
+POST        /signin                     controllers.LogIn.logIn()
+GET         /signout                    controllers.LogIn.logOut()
+GET         /signuperror                controllers.LogIn.signUpError()
+GET         /signinerror                controllers.LogIn.indexError()
 
 #Event
-GET         /new                 controllers.Event.newEvent()
-POST        /new/save            controllers.Event.saveNewEvent()
-GET         /event/:id           controllers.Event.renderEvent(id)
-GET         /event               controllers.Event.getEvents()
-POST        /inviteUser/:eventID controllers.Event.inviteUser(eventID)
+GET         /new                        controllers.Event.newEvent()
+POST        /new/save                   controllers.Event.saveNewEvent()
+GET         /event/:id                  controllers.Event.renderEvent(id)
+GET         /event                      controllers.Event.getEvents()
+POST        /inviteUser/:eventID        controllers.Event.inviteUser(eventID)
+POST        /updateStatus/:affID        controllers.Event.updateStatus(affID)
 
 #Admin
-GET         /admin               controllers.Admin.index()
-POST        /admin               controllers.Admin.add()
+GET         /admin                      controllers.Admin.index()
+POST        /admin                      controllers.Admin.add()
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file        controllers.Assets.at(path="/public", file)
+GET         /assets/*file               controllers.Assets.at(path="/public", file)
