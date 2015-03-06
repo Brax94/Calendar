@@ -1,5 +1,6 @@
 package controllers;
 
+import models.Affiliated;
 import models.Bruker;
 import models.HttpRequestData;
 import play.mvc.Controller;

@@ -4,8 +4,8 @@
 # --- !Ups
 
 create table affiliated (
-  user_id                   bigint,
-  event_id                  bigint,
+  bruker_username           varchar(255),
+  event_event_id            bigint,
   alarm_time                timestamp not null,
   status                    integer,
   constraint ck_affiliated_status check (status in (0,1,2,3)))
@@ -49,10 +49,14 @@ create table room (
 
 create sequence bruker_seq;
 
-alter table event add constraint fk_event_creator_1 foreign key (creator_username) references bruker (username) on delete restrict on update restrict;
-create index ix_event_creator_1 on event (creator_username);
-alter table event add constraint fk_event_room_2 foreign key (room_room_id) references room (room_id) on delete restrict on update restrict;
-create index ix_event_room_2 on event (room_room_id);
+alter table affiliated add constraint fk_affiliated_bruker_1 foreign key (bruker_username) references bruker (username) on delete restrict on update restrict;
+create index ix_affiliated_bruker_1 on affiliated (bruker_username);
+alter table affiliated add constraint fk_affiliated_event_2 foreign key (event_event_id) references event (event_id) on delete restrict on update restrict;
+create index ix_affiliated_event_2 on affiliated (event_event_id);
+alter table event add constraint fk_event_creator_3 foreign key (creator_username) references bruker (username) on delete restrict on update restrict;
+create index ix_event_creator_3 on event (creator_username);
+alter table event add constraint fk_event_room_4 foreign key (room_room_id) references room (room_id) on delete restrict on update restrict;
+create index ix_event_room_4 on event (room_room_id);
 
 
 

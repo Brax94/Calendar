@@ -25,7 +25,7 @@ public class Event extends Model{
     private String text;
     private String place;
     @OneToOne
-    private Bruker creator; //TODO: lag constructor
+    private Bruker creator;
     @OneToOne
     private Room room;
 
