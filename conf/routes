@@ -22,6 +22,7 @@ GET         /new                 controllers.Event.newEvent()
 POST        /new/save            controllers.Event.saveNewEvent()
 GET         /event/:id           controllers.Event.renderEvent(id)
 GET         /event               controllers.Event.getEvents()
+POST        /inviteUser/:eventID controllers.Event.inviteUser(eventID)
 
 #Admin
 GET         /admin               controllers.Admin.index()

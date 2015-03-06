@@ -4,11 +4,13 @@
 # --- !Ups
 
 create table affiliated (
+  affiliated_id             bigint auto_increment not null,
   bruker_username           varchar(255),
   event_event_id            bigint,
   alarm_time                timestamp not null,
   status                    integer,
-  constraint ck_affiliated_status check (status in (0,1,2,3)))
+  constraint ck_affiliated_status check (status in (0,1,2,3)),
+  constraint pk_affiliated primary key (affiliated_id))
 ;
 
 create table bruker (
@@ -39,6 +41,15 @@ create table event (
   constraint pk_event primary key (event_id))
 ;
 
+create table rom_booking (
+  room_booking_id           bigint auto_increment not null,
+  room_room_id              bigint,
+  event_event_id            bigint,
+  event_starts              timestamp not null,
+  event_ends                timestamp not null,
+  constraint pk_rom_booking primary key (room_booking_id))
+;
+
 create table room (
   room_id                   bigint auto_increment not null,
   name                      varchar(255) not null,
@@ -57,6 +68,10 @@ alter table event add constraint fk_event_creator_3 foreign key (creator_usernam
 create index ix_event_creator_3 on event (creator_username);
 alter table event add constraint fk_event_room_4 foreign key (room_room_id) references room (room_id) on delete restrict on update restrict;
 create index ix_event_room_4 on event (room_room_id);
+alter table rom_booking add constraint fk_rom_booking_room_5 foreign key (room_room_id) references room (room_id) on delete restrict on update restrict;
+create index ix_rom_booking_room_5 on rom_booking (room_room_id);
+alter table rom_booking add constraint fk_rom_booking_event_6 foreign key (event_event_id) references event (event_id) on delete restrict on update restrict;
+create index ix_rom_booking_event_6 on rom_booking (event_event_id);
 
 
 
@@ -71,6 +86,8 @@ drop table if exists bruker;
 drop table if exists dbtest;
 
 drop table if exists event;
+
+drop table if exists rom_booking;
 
 drop table if exists room;
 

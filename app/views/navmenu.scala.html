@@ -35,7 +35,6 @@
 
             <ul class="nav navbar-nav navbar-right">
                 @if(Bruker.signedIn() == true){
-                    @System.out.println("Sucessfull" + session.get("User"))
                     <p class="navbar-text">Velkommen, @Bruker.find.byId(session.get("User")).getFirstName</p>
                     <li><a href="/signout">Log Out</a></li>
                 }

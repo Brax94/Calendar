@@ -1,4 +1,4 @@
-@(event: models.Event)
+@(event: models.Event, affiliation: models.Affiliated)
 <div class="conteiner-fluid">
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
@@ -14,6 +14,32 @@
                 @Html("" + event.getEventStarts().get(Calendar.HOUR_OF_DAY) + ":" + event.getEventStarts().get(Calendar.MINUTE))
                 @Html(event.getCreator().getFirstName)
                 @Html(event.getCreator().getLastName)
+
+                @if(event.getCreator.equals(Bruker.find.byId(session.get("User")))){
+                <form action="/inviteUser/@event.getEventId" method="POST">
+                    <div class="form-group">
+                        <lable for="invUser">Invite User</lable>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="invUser">
+                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                            </span>
+                            <input type="text" class="form-control" id="invUser" name="invUser" aria-describedby="invUser" placeholder="User">
+                        </div>
+                        <button type="submit" class="form-control btn btn-success"> Invite </button>
+                    </div>
+                </form>}
+                @System.out.println(affiliation.getStatus().toString())
+                <form>
+                    <label class="radio-inline">
+                        <input type="radio" name="status" id="inlineRadio1" value="ATTENDING"> Attending
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="status" id="inlineRadio2" value="MAYBE"> Maybe
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="status" id="inlineRadio3" value="NOT_ATTENDING"> Not attending
+                    </label>
+                </form>
             </div>
         </div>
     </div>

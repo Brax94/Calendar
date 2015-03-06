@@ -2,10 +2,7 @@ package models;
 
 import play.db.ebean.Model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.Calendar;
 
 /**
@@ -13,6 +10,11 @@ import java.util.Calendar;
  */
 @Entity
 public class Affiliated extends Model{
+
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(nullable = false)
+    private long affiliatedId;
 
     @OneToOne
     private Bruker bruker;
@@ -31,8 +33,10 @@ public class Affiliated extends Model{
 
     private Status status;
 
-    public Affiliated(){
+    public Affiliated(Bruker bruker, Event event){
         this.status=Status.UNDECIDED;
+        setBruker(bruker);
+        setEvent(event);
     }
 
     public Bruker getBruker() {
