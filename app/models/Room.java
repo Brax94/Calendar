@@ -3,6 +3,7 @@ package models;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
+import java.util.Map;
 
 /**
  * Created by carlandreasjulsvoll on 24.02.15.
@@ -24,6 +25,12 @@ public class Room extends Model{
     public static Finder<Long, Room> find = new Finder<Long, Room> (
             Long.class, Room.class
     );
+
+    public void create(Map map){
+        this.name = map.get("name").toString();
+        this.text = map.get("text").toString();
+        this.roomSize = Integer.parseInt(map.get("room_size").toString());
+    }
 
     public long getRoomId() {
         return roomId;
