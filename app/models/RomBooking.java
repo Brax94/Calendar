@@ -30,8 +30,35 @@ public class RomBooking extends Model{
     @Column(nullable = false)
     private Calendar eventEnds;
 
+    public Room getRoom() {
+        return room;
+    }
 
+    public void setRoom(Room room) {
+        this.room = room;
+    }
 
+    public Event getEvent() {
+        return event;
+    }
 
+    public void setEvent(Event event) {
+        this.event = event;
+    }
 
+    public Calendar getEventStarts() {
+        return eventStarts;
+    }
+
+    public void setEventStarts(Calendar eventStarts) {
+        this.eventStarts = eventStarts;
+    }
+
+    public Calendar getEventEnds() {
+        return eventEnds;
+    }
+
+    public void setEventEnds(Calendar eventEnds) {
+        this.eventEnds = eventEnds;
+    }
 }
