@@ -47,7 +47,7 @@
                 </form>
                 <hr>
                 @for(i <- invList) {
-                    @Html(i.getBruker().getFirstName()) @i.getStatus().toString()
+                    @Html(i.getBruker().getFirstName()) Status: @i.getStatus().toString()
                     <br>
                     }
             </div>
