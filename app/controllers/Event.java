@@ -90,13 +90,15 @@ public class Event extends Controller {
         int numberOfNotAttendig = 0;
         int numberOfUndecided = 0;
         for(Affiliated aff : liste){
-            switch(aff.getStatus()){
-                case ATTENDING: numberOfAttending++;
-                case MAYBE: numberOfMaybe++;
-                case NOT_ATTENDING: numberOfNotAttendig++;
-                case UNDECIDED: numberOfUndecided++;
-            }
+            if(aff.getStatus().toString().equals(Status.ATTENDING.toString())) { numberOfAttending++;}
+            else if(aff.getStatus().toString().equals(Status.MAYBE.toString())){ numberOfMaybe++;}
+            else if(aff.getStatus().toString().equals(Status.NOT_ATTENDING.toString())){ numberOfNotAttendig++;}
+            else{numberOfUndecided++;}
         }
+        retur.add(numberOfAttending);
+        retur.add(numberOfMaybe);
+        retur.add(numberOfNotAttendig);
+        retur.add(numberOfUndecided);
         return retur;
     }
     public static Result updateStatus(String id) {

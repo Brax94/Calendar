@@ -45,11 +45,26 @@
                     </div>
                     <button type="submit" class="btn btn-inline btn-success"> Update Status</button>
                 </form>
+                <hr>
+                <table>
+                    <tr>
+                        <th>Attending  </th>
+                        <th>Maybe  </th>
+                        <th>Not Attending  </th>
+                        <th>Awaiting  </th>
+                    </tr>
+                    <tr>
+                        <td>@statusList.get(0)</td>
+                        <td>@statusList.get(1)</td>
+                        <td>@statusList.get(2)</td>
+                        <td>@statusList.get(3)</td>
+                    </tr>
+
                 <table>
                     <tr>
                         <th>Deltaker</th>
                         <th>Status</th>
-                        <th>Slett</th>
+                        <th></th>
                     </tr>
                 @for(i <- invList) {
                     <tr>
