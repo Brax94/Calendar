@@ -82,13 +82,13 @@ public class RomBooking extends Model{
     }
 
     public static boolean isColliding(Calendar start,Calendar end,RomBooking book){
-        if(start.getInstance().compareTo(book.getEventStarts().getInstance())<0 && end.getInstance().compareTo(book.getEventEnds().getInstance())>0){
+        if((start.getTimeInMillis()-book.getEventStarts().getTimeInMillis())<0 && (end.getTimeInMillis()-book.getEventEnds().getTimeInMillis())>0){
             return true;
-        }else if(start.getInstance().compareTo(book.getEventStarts().getInstance())<0 && end.getInstance().compareTo(book.getEventStarts().getInstance())>0){
+        }else if((start.getTimeInMillis()-book.getEventStarts().getTimeInMillis())<0 && (end.getTimeInMillis()-book.getEventStarts().getTimeInMillis()>0)){
             return true;
-        }else if(start.getInstance().compareTo(book.getEventStarts().getInstance())>=0 && end.getInstance().compareTo(book.getEventStarts().getInstance())<=0){
+        }else if((start.getTimeInMillis()-book.getEventStarts().getTimeInMillis())>=0 && (end.getTimeInMillis()-book.getEventStarts().getTimeInMillis()<=0)){
             return true;
-        }else if(start.getInstance().compareTo(book.getEventStarts().getInstance())>=0 && end.getInstance().compareTo(book.getEventStarts().getInstance())>=0){
+        }else if((start.getTimeInMillis()-book.getEventStarts().getTimeInMillis())>=0 && (end.getTimeInMillis()-book.getEventStarts().getTimeInMillis()>=0)){
             return true;
         }
         return false;
