@@ -13,9 +13,9 @@
                 @Html("" + event.getEventStarts().get(Calendar.DAY_OF_MONTH) + "." + (event.getEventStarts().get(Calendar.MONTH) + 1) + "." + event.getEventStarts().get(Calendar.YEAR))
                 ;
                 @Html("" + event.getEventStarts().get(Calendar.HOUR_OF_DAY) + ":" + event.getEventStarts().get(Calendar.MINUTE))
-                @Html(event.getCreator().getFirstName)
-                @Html(event.getCreator().getLastName)
-
+                @Html(event.getCreator().getFirstName())
+                @Html(event.getCreator().getLastName())
+                @Html(event.getRoom().getName())
                 @if(event.getCreator.equals(Bruker.find.byId(session.get("User")))) {
                     <form action="/inviteUser/@event.getEventId" method="POST">
                         <div class="form-group">

@@ -5,8 +5,10 @@ import play.db.ebean.Model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import static play.mvc.Controller.session;
 
@@ -40,7 +42,6 @@ public class Event extends Model{
             Long.class, Event.class
     );
 
-
     public Bruker getCreator() {
         return creator;
     }
@@ -50,6 +51,10 @@ public class Event extends Model{
 
     public Room getRoom() {
         return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
     }
 
     public Timestamp getDateMade() {
