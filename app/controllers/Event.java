@@ -22,7 +22,7 @@ import static play.mvc.Results.ok;
 public class Event extends Controller {
 
     public static Result renderEvent(String eventID) {
-        return Bruker.signedIn(ok(views.html.layoutHtml.render("Event", views.html.Event.event.render(getEvent(eventID), getAffiliation(eventID), getAffiliated(eventID)))));
+        return Bruker.signedIn(ok(views.html.layoutHtml.render("Event", views.html.Event.event.render(getEvent(eventID), getAffiliation(eventID), getAffiliated(eventID),getStatusNumbers(eventID)))));
     }
 
     public static Result newEvent() {
@@ -82,13 +82,13 @@ public class Event extends Controller {
         ATTENDING, MAYBE, NOT_ATTENDING, UNDECIDED
     }
 
-    public static List<Integer> StatusNumbers(String eventID){
+    public static List<Integer> getStatusNumbers(String eventID){
         List<Affiliated> liste = getAffiliated(eventID);
         List<Integer> retur = new ArrayList<Integer>();
-        Integer numberOfAttending = 0;
-        Integer numberOfMaybe = 0;
-        Integer numberOfNotAttendig = 0;
-        Integer numberOfUndecided = 0;
+        int numberOfAttending = 0;
+        int numberOfMaybe = 0;
+        int numberOfNotAttendig = 0;
+        int numberOfUndecided = 0;
         for(Affiliated aff : liste){
             switch(aff.getStatus()){
                 case ATTENDING: numberOfAttending++;
