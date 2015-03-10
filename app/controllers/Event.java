@@ -78,6 +78,27 @@ public class Event extends Controller {
         return affiliatedList;
     }
 
+    public enum Status{
+        ATTENDING, MAYBE, NOT_ATTENDING, UNDECIDED
+    }
+
+    public static List<Integer> StatusNumbers(String eventID){
+        List<Affiliated> liste = getAffiliated(eventID);
+        List<Integer> retur = new ArrayList<Integer>();
+        Integer numberOfAttending = 0;
+        Integer numberOfMaybe = 0;
+        Integer numberOfNotAttendig = 0;
+        Integer numberOfUndecided = 0;
+        for(Affiliated aff : liste){
+            switch(aff.getStatus()){
+                case ATTENDING: numberOfAttending++;
+                case MAYBE: numberOfMaybe++;
+                case NOT_ATTENDING: numberOfNotAttendig++;
+                case UNDECIDED: numberOfUndecided++;
+            }
+        }
+        return retur;
+    }
     public static Result updateStatus(String id) {
         Affiliated affiliated = Affiliated.find.byId(Long.parseLong(id));
         affiliated.setStatus(Affiliated.Status.valueOf(new HttpRequestData().get("status")));
