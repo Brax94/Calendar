@@ -45,8 +45,12 @@
                     </div>
                     <button type="submit" class="btn btn-inline btn-success"> Update Status</button>
                 </form>
-                <hr>
-                @Html()
+                <table>
+                    <tr>
+                        <th>Deltaker</th>
+                        <th>Status</th>
+                        <th>Slett</th>
+                    </tr>
                 @for(i <- invList) {
                     <tr>
                         <td>@i.getBruker().getFirstName()</td>
