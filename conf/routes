@@ -24,6 +24,7 @@ GET         /event/:id                  controllers.Event.renderEvent(id)
 GET         /event                      controllers.Event.getEvents()
 POST        /inviteUser/:eventID        controllers.Event.inviteUser(eventID)
 POST        /updateStatus/:affID        controllers.Event.updateStatus(affID)
+POST        /remove/:affID              controllers.Event.remove(affID)
 
 #Admin
 GET         /admin                      controllers.Admin.index()

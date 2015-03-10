@@ -46,7 +46,7 @@ public class Month {
             for (models.Event event : events) {
                 if (event.getEventStarts().get(Y) == this_day.get(Y)
                         && event.getEventStarts().get(M) == this_day.get(M)
-                        && event.getEventStarts().get(D) == this_day.get(D)) {System.out.println(); this_events.add(event);}
+                        && event.getEventStarts().get(D) == this_day.get(D)) {System.out.println("hei"); this_events.add(event);}
             }
 
             this.days.add(new Day(this_day, this_events));

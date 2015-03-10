@@ -25,3 +25,7 @@ html {
     -o-background-size: cover;
     background-size: cover;
 }
+
+.box .mine-table {
+    width: 100%;
+}

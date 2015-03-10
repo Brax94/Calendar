@@ -22,8 +22,6 @@ create table bruker (
   constraint pk_bruker primary key (username))
 ;
 
-
-
 create table dbtest (
   id                        integer auto_increment not null,
   text                      varchar(255),

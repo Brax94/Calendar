@@ -46,10 +46,22 @@
                     <button type="submit" class="btn btn-inline btn-success"> Update Status</button>
                 </form>
                 <hr>
+                <table class = "mine-table">
+                    <tr>
+                        <th>Deltaker</th>
+                        <th>Status</th>
+                        <th>Slett</th>
+                    </tr>
                 @for(i <- invList) {
-                    @Html(i.getBruker().getFirstName()) Status: @i.getStatus().toString()
-                    <br>
+                    <tr>
+                        <td>@i.getBruker().getFirstName()</td>
+                        <td>@i.getStatus().toString()</td>
+                        <form method="POST" action="/remove/@i.getAffiliatedId()">
+                            <td><button type = "submit"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
+                        </form>
+                    </tr>
                     }
+                </table>
             </div>
         </div>
     </div>

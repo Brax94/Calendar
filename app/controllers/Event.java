@@ -106,4 +106,9 @@ public class Event extends Controller {
         affiliated.update();
         return redirect(routes.Event.renderEvent(String.valueOf(affiliated.getEvent().getEventId())).absoluteURL(request()));
     }
+
+    public static Result remove(String affID) {
+        Affiliated.find.ref(Long.parseLong(affID)).delete();
+        return getEvents();
+    }
 }
