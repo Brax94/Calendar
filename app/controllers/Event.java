@@ -55,7 +55,8 @@ public class Event extends Controller {
         List<models.Event> eventList = models.Event.find.where().eq("creator", Bruker.find.byId(session("User"))).orderBy("eventStarts").findList();
         List<Affiliated> affiliatedList = Affiliated.find.where().eq("bruker", Bruker.find.byId(session("User"))).findList();
         for (Affiliated i : affiliatedList) {
-            eventList.add(i.getEvent());
+            if (!eventList.contains(i.getEvent()))
+                eventList.add(i.getEvent());
         }
         return Bruker.signedIn(ok(views.html.layoutHtml.render("MyEvents", views.html.Event.myEvents.render(eventList))));
     }
