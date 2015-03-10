@@ -18,7 +18,6 @@ public class Admin extends Controller {
 
     public static Result index() {
         List<Room> rooms = Room.find.all();
-        List
         return ok(layoutHtml.render("Admin", views.html.Admin.admin.render(rooms)));
     }
 
