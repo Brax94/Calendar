@@ -5,7 +5,11 @@ package models;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
+import models.Room;
+
 
 /**
  * Created by carlandreasjulsvoll on 05.03.15.
@@ -29,6 +33,10 @@ public class RomBooking extends Model{
     private Calendar eventStarts;
     @Column(nullable = false)
     private Calendar eventEnds;
+
+    public static Finder<Long, RomBooking> find = new Finder<Long, RomBooking> (
+            Long.class, RomBooking.class
+    );
 
     public Room getRoom() {
         return room;
@@ -61,4 +69,29 @@ public class RomBooking extends Model{
     public void setEventEnds(Calendar eventEnds) {
         this.eventEnds = eventEnds;
     }
+
+    public static List<Room> availableRooms(Calendar eventStarts, Calendar eventEnds){
+        List<RomBooking> romBookingList = RomBooking.find.all();
+        List<Room> availableRooms = Room.find.all();;
+        for(RomBooking romBooking : romBookingList){
+            if(isColliding(eventStarts, eventEnds, romBooking)){
+                availableRooms.remove(romBooking.getRoom());
+            }
+        }
+        return availableRooms;
+    }
+
+    public static boolean isColliding(Calendar start,Calendar end,RomBooking book){
+        if(start.getInstance().compareTo(book.getEventStarts().getInstance())<0 && end.getInstance().compareTo(book.getEventEnds().getInstance())>0){
+            return true;
+        }else if(start.getInstance().compareTo(book.getEventStarts().getInstance())<0 && end.getInstance().compareTo(book.getEventStarts().getInstance())>0){
+            return true;
+        }else if(start.getInstance().compareTo(book.getEventStarts().getInstance())>=0 && end.getInstance().compareTo(book.getEventStarts().getInstance())<=0){
+            return true;
+        }else if(start.getInstance().compareTo(book.getEventStarts().getInstance())>=0 && end.getInstance().compareTo(book.getEventStarts().getInstance())>=0){
+            return true;
+        }
+        return false;
+    }
+
 }
