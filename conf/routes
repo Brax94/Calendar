@@ -31,6 +31,8 @@ GET         /event/edit/:eventID        controllers.Event.editEvent(eventID)
 GET         /mygroups                   controllers.GruppeController.mineGrupper()
 GET         /newgroup                   controllers.GruppeController.newGruppe()
 POST        /newgroup                   controllers.GruppeController.createGruppe()
+GET         /group/:id                  controllers.GruppeController.renderGruppe(id)
+POST        /inviteGroupUser/:groupID   controllers.GruppeController.inviteUser(groupID)
 
 #Admin
 GET         /admin                      controllers.Admin.index()

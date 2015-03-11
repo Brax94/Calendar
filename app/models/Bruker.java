@@ -38,6 +38,15 @@ public class Bruker extends Model {
     public Bruker() {
     }
 
+    public void addGroup(Gruppe gruppe){
+        gruppeList.add(gruppe);
+    }
+
+    public void removeGroup(Gruppe gruppe){
+        gruppeList.remove(gruppe);
+    }
+
+
     public String getUsername() {
         return username;
     }

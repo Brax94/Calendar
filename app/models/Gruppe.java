@@ -26,7 +26,7 @@ public class Gruppe extends Model{
     @ManyToMany(mappedBy = "gruppeList")
     private List<Bruker> brukerList = new ArrayList<Bruker>();
     @OneToOne
-    private Gruppe motherGruppe;
+    private Gruppe motherGruppe = null;
 
     public static Model.Finder<Long, Gruppe> find = new Model.Finder<Long, Gruppe> (
             Long.class, Gruppe.class
@@ -59,5 +59,20 @@ public class Gruppe extends Model{
 
     public void setCreator(Bruker creator) {
         this.creator = creator;
+    }
+
+    public Gruppe getMotherGroup(){
+        return this.motherGruppe;
+    }
+    public void setMotherGroup(Gruppe g){
+        this.motherGruppe=g;
+    }
+
+    public void addMember(Bruker bruker){
+        brukerList.add(bruker);
+    }
+
+    public List<Bruker> getMembers(){
+        return this.brukerList;
     }
 }
