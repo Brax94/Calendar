@@ -33,6 +33,10 @@ public class RomBooking extends Model{
     private Calendar eventStarts;
     @Column(nullable = false)
     private Calendar eventEnds;
+    @OneToOne
+    private Room room;
+    @OneToOne
+    private Event event;
 
     public static Finder<Long, RomBooking> find = new Finder<Long, RomBooking> (
             Long.class, RomBooking.class

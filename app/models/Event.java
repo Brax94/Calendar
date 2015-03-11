@@ -38,6 +38,7 @@ public class Event extends Model{
     @CreatedTimestamp
     private Timestamp dateMade;
 
+
     public static Finder<Long, Event> find = new Finder<Long, Event> (
             Long.class, Event.class
     );
