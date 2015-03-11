@@ -75,36 +75,36 @@ public class Event extends Controller {
     public static Result inviteUser(String eventID) {
         if (Bruker.find.byId(new HttpRequestData().get("invUser")) != null) {
             Bruker bruker = Bruker.find.byId(new HttpRequestData().get("invUser"));
+            if(Affiliated.find.where().eq("bruker", bruker).where().eq("event", models.Event.find.byId(Long.parseLong(eventID))).findUnique() == null){
             models.Event event = models.Event.find.byId(Long.parseLong(eventID));
             Affiliated affiliated = new Affiliated(bruker, event);
-            affiliated.save();
+            affiliated.save();}
             return redirect(routes.Event.renderEvent(eventID).absoluteURL(request()));
         } else {
             System.out.println("ERROR");
             return redirect(routes.Event.renderEvent(eventID).absoluteURL(request()));
         }
     }
+    public static void inviteUser(Bruker bruker, models.Event event) {
+        if (bruker != null && event != null) {
+            if(Affiliated.find.where().eq("bruker", Bruker.find.byId(bruker.getUsername())).where().eq("event", models.Event.find.byId(event.getEventId())).findUnique() == null){
+            Affiliated affiliated = new Affiliated(bruker, event);
+            affiliated.save();}
+            else{System.out.println("ERROR");}
+        } else {
+            System.out.println("ERROR");
+        }
+    }
 
     public static Result inviteGroup(String eventID){
         Long id = Long.parseLong(eventID);
-        models.Event eve = models.Event.find.byId(id);
+        models.Event event = models.Event.find.byId(id);
         if(Gruppe.find.byId(Long.parseLong(new HttpRequestData().get("groupID"))) != null){
             Gruppe gruppe = Gruppe.find.byId(Long.parseLong(new HttpRequestData().get("groupID")));
-            System.out.println(gruppe);
-            List<Bruker> brukere = gruppe.getMembers();
-            List<Bruker> brukere2 = brukere;
-            System.out.println(gruppe.getMembers().toString());
-            for(Bruker bruker : brukere){
-                List<Affiliated> affiliatedList = Affiliated.find.where().eq("bruker", Bruker.find.byId(bruker.getUsername())).findList();
-                for(Affiliated aff : affiliatedList){
-                    if(id.equals(aff.getEvent().getEventId())){
-                        brukere2.remove(bruker);
-                        break;
-                    }
-                }
-                Affiliated affiliated = new Affiliated(bruker,eve);
-                affiliated.save();
+            for(Bruker bruker : gruppe.getMembers()){
+                inviteUser(bruker, event);
             }
+
             return redirect(routes.Event.renderEvent(eventID).absoluteURL(request()));
         }
         return redirect(routes.Event.renderEvent(eventID).absoluteURL(request()));
