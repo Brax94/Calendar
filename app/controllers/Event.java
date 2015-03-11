@@ -9,7 +9,9 @@ import play.mvc.Result;
 import play.data.Form;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+
 
 import static models.HttpRequestData.*;
 import static play.data.Form.form;
@@ -93,28 +95,28 @@ public class Event extends Controller {
     }
 
     public static List<Integer> getStatusNumbers(String eventID) {
-        List<Affiliated> liste = getAffiliated(eventID);
-        List<Integer> retur = new ArrayList<Integer>();
-        int numberOfAttending = 0;
-        int numberOfMaybe = 0;
-        int numberOfNotAttendig = 0;
-        int numberOfUndecided = 0;
-        for (Affiliated aff : liste) {
-            if (aff.getStatus().toString().equals(Status.ATTENDING.toString())) {
-                numberOfAttending++;
-            } else if (aff.getStatus().toString().equals(Status.MAYBE.toString())) {
-                numberOfMaybe++;
-            } else if (aff.getStatus().toString().equals(Status.NOT_ATTENDING.toString())) {
-                numberOfNotAttendig++;
-            } else {
-                numberOfUndecided++;
+            List<Affiliated> liste = getAffiliated(eventID);
+            List<Integer> retur = new ArrayList<Integer>();
+            int numberOfAttending = 0;
+            int numberOfMaybe = 0;
+            int numberOfNotAttendig = 0;
+            int numberOfUndecided = 0;
+            for (Affiliated aff : liste) {
+                if (aff.getStatus().toString().equals(Status.ATTENDING.toString())) {
+                    numberOfAttending++;
+                } else if (aff.getStatus().toString().equals(Status.MAYBE.toString())) {
+                    numberOfMaybe++;
+                } else if (aff.getStatus().toString().equals(Status.NOT_ATTENDING.toString())) {
+                    numberOfNotAttendig++;
+                } else {
+                    numberOfUndecided++;
+                }
             }
-        }
-        retur.add(numberOfAttending);
-        retur.add(numberOfMaybe);
-        retur.add(numberOfNotAttendig);
-        retur.add(numberOfUndecided);
-        return retur;
+            retur.add(numberOfAttending);
+            retur.add(numberOfMaybe);
+            retur.add(numberOfNotAttendig);
+            retur.add(numberOfUndecided);
+            return retur;
     }
 
     public static Result updateStatus(String id) {
@@ -129,4 +131,29 @@ public class Event extends Controller {
         Affiliated.find.ref(Long.parseLong(affID)).delete();
         return getEvents();
     }
+
+    public static List<Room> availableRooms(Calendar eventStarts, Calendar eventEnds){
+        List<models.Event> eventList = models.Event.find.all();
+        List<Room> availableRooms = Room.find.all();;
+        for(models.Event event : eventList){
+            if(isColliding(eventStarts, eventEnds, event)){
+                availableRooms.remove(event.getRoom());
+            }
+        }
+        return availableRooms;
+    }
+
+    public static boolean isColliding(Calendar start,Calendar end,models.Event event){
+        if((start.getTimeInMillis()-event.getEventStarts().getTimeInMillis())<0 && (end.getTimeInMillis()-event.getEventEnds().getTimeInMillis())>0){
+            return true;
+        }else if((start.getTimeInMillis()-event.getEventStarts().getTimeInMillis())<0 && (end.getTimeInMillis()-event.getEventStarts().getTimeInMillis()>0)){
+            return true;
+        }else if((start.getTimeInMillis()-event.getEventStarts().getTimeInMillis())>=0 && (end.getTimeInMillis()-event.getEventStarts().getTimeInMillis()<=0)){
+            return true;
+        }else if((start.getTimeInMillis()-event.getEventStarts().getTimeInMillis())>=0 && (end.getTimeInMillis()-event.getEventStarts().getTimeInMillis()>=0)){
+            return true;
+        }
+        return false;
+    }
+
 }
