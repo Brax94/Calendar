@@ -56,8 +56,9 @@
                             <span class="input-group-addon" id="end-id">
                                 <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
                             </span>
-                            <option value = "noRoom">No Room</option>
+
                             <select class="form-control" name="roomId">
+                                <option value = "noRoom">No Room</option>
                                 @for(i <- rooms) {
                                     <option value = "@i.getRoomId()">@i.getName() (Number of spots: @i.getRoomSize())</option>
                                 }
