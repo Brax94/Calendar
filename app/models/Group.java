@@ -22,7 +22,7 @@ public class Group extends Model{
     @Column(nullable = false)
     @OneToOne
     private String creator;
-    @OneToMany
+    @ManyToMany
     private List<Bruker> brukerList;
     @OneToOne
     private Group motherGroup;
