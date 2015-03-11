@@ -36,9 +36,12 @@ public class Event extends Controller {
         eventModel.setEventStarts(new HttpRequestData().get("eStarts"));
         eventModel.setEventEnds(new HttpRequestData().get("eEnds"));
         eventModel.setCreator(Bruker.find.byId(session().get("User")));
-        if (Room.find.byId(Long.parseLong(new HttpRequestData().get("roomId"))) != null) {
+        try {
             Room room = Room.find.byId(Long.parseLong(new HttpRequestData().get("roomId")));
             eventModel.setRoom(room);
+        }
+        catch(Exception e){
+
         }
         eventModel.save();
         Affiliated affiliated = new Affiliated(Bruker.find.byId(session("User")), eventModel);
