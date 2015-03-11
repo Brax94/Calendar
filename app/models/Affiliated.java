@@ -18,7 +18,7 @@ public class Affiliated extends Model{
 
     @OneToOne
     private Bruker bruker;
-    @OneToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     private Event event;
     @Column(nullable = false)
     private Calendar alarmTime = null;
