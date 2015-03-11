@@ -17,13 +17,13 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-            @if(session.get("User") != null) {
+            @if(Bruker.signedIn()) {
                 <li><a href="/event">My Events</a></li>
                 <li><a href="/new">New</a></li>
                 <li><a href="/admin">Admin</a></li>
             }
             </ul>
-            @if(session.get("User") == null){
+            @if(!Bruker.signedIn()){
             <form class="navbar-form navbar-right" action="/signin" method="POST" name="login">
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="Username" name="user">
