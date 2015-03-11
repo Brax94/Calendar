@@ -22,7 +22,7 @@ import static play.mvc.Results.ok;
 public class Event extends Controller {
 
     public static Result renderEvent(String eventID) {
-        return Bruker.signedIn(ok(views.html.layoutHtml.render("Event", views.html.Event.event.render(getEvent(eventID), getAffiliation(eventID), getAffiliated(eventID),getStatusNumbers(eventID)))));
+        return Bruker.signedIn(ok(views.html.layoutHtml.render("Event", views.html.Event.event.render(getEvent(eventID), getAffiliation(eventID), getAffiliated(eventID), getStatusNumbers(eventID)))));
     }
 
     public static Result newEvent() {
@@ -62,11 +62,16 @@ public class Event extends Controller {
     }
 
     public static Result inviteUser(String eventID) {
-        Bruker bruker = Bruker.find.byId(new HttpRequestData().get("invUser"));
-        models.Event event = models.Event.find.byId(Long.parseLong(eventID));
-        Affiliated affiliated = new Affiliated(bruker, event);
-        affiliated.save();
-        return redirect(routes.Event.renderEvent(eventID).absoluteURL(request()));
+        if (Bruker.find.byId(new HttpRequestData().get("invUser")) != null) {
+            Bruker bruker = Bruker.find.byId(new HttpRequestData().get("invUser"));
+            models.Event event = models.Event.find.byId(Long.parseLong(eventID));
+            Affiliated affiliated = new Affiliated(bruker, event);
+            affiliated.save();
+            return redirect(routes.Event.renderEvent(eventID).absoluteURL(request()));
+        } else {
+            System.out.println("ERROR");
+            return redirect(routes.Event.renderEvent(eventID).absoluteURL(request()));
+        }
     }
 
     public static Affiliated getAffiliation(String eventID) {
@@ -78,22 +83,27 @@ public class Event extends Controller {
         return affiliatedList;
     }
 
-    public enum Status{
+    public enum Status {
         ATTENDING, MAYBE, NOT_ATTENDING, UNDECIDED
     }
 
-    public static List<Integer> getStatusNumbers(String eventID){
+    public static List<Integer> getStatusNumbers(String eventID) {
         List<Affiliated> liste = getAffiliated(eventID);
         List<Integer> retur = new ArrayList<Integer>();
         int numberOfAttending = 0;
         int numberOfMaybe = 0;
         int numberOfNotAttendig = 0;
         int numberOfUndecided = 0;
-        for(Affiliated aff : liste){
-            if(aff.getStatus().toString().equals(Status.ATTENDING.toString())) { numberOfAttending++;}
-            else if(aff.getStatus().toString().equals(Status.MAYBE.toString())){ numberOfMaybe++;}
-            else if(aff.getStatus().toString().equals(Status.NOT_ATTENDING.toString())){ numberOfNotAttendig++;}
-            else{numberOfUndecided++;}
+        for (Affiliated aff : liste) {
+            if (aff.getStatus().toString().equals(Status.ATTENDING.toString())) {
+                numberOfAttending++;
+            } else if (aff.getStatus().toString().equals(Status.MAYBE.toString())) {
+                numberOfMaybe++;
+            } else if (aff.getStatus().toString().equals(Status.NOT_ATTENDING.toString())) {
+                numberOfNotAttendig++;
+            } else {
+                numberOfUndecided++;
+            }
         }
         retur.add(numberOfAttending);
         retur.add(numberOfMaybe);
@@ -101,6 +111,7 @@ public class Event extends Controller {
         retur.add(numberOfUndecided);
         return retur;
     }
+
     public static Result updateStatus(String id) {
         Affiliated affiliated = Affiliated.find.byId(Long.parseLong(id));
         affiliated.setStatus(Affiliated.Status.valueOf(new HttpRequestData().get("status")));
