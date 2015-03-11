@@ -1,10 +1,7 @@
 package controllers;
 
 import controllers.*;
-import models.Affiliated;
-import models.Bruker;
-import models.HttpRequestData;
-import models.Room;
+import models.*;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.data.Form;
@@ -26,7 +23,11 @@ import static play.mvc.Results.ok;
 public class Event extends Controller {
 
     public static Result renderEvent(String eventID) {
-        return Bruker.signedIn(ok(views.html.layoutHtml.render("Event", views.html.Event.event.render(getEvent(eventID), getAffiliation(eventID), getAffiliated(eventID), getStatusNumbers(eventID)))));
+        return Bruker.signedIn(ok(views.html.layoutHtml.render("Event", views.html.Event.event.render(getEvent(eventID), getAffiliation(eventID), getAffiliated(eventID), getStatusNumbers(eventID), getGroups()))));
+    }
+
+    public static List<Gruppe> getGroups(){
+        return models.Gruppe.find.all();
     }
 
     public static Result newEvent() {
@@ -82,6 +83,31 @@ public class Event extends Controller {
             System.out.println("ERROR");
             return redirect(routes.Event.renderEvent(eventID).absoluteURL(request()));
         }
+    }
+
+    public static Result inviteGroup(String eventID){
+        Long id = Long.parseLong(eventID);
+        models.Event eve = models.Event.find.byId(id);
+        if(Gruppe.find.byId(Long.parseLong(new HttpRequestData().get("groupID"))) != null){
+            Gruppe gruppe = Gruppe.find.byId(Long.parseLong(new HttpRequestData().get("groupID")));
+            System.out.println(gruppe);
+            List<Bruker> brukere = gruppe.getMembers();
+            List<Bruker> brukere2 = brukere;
+            System.out.println(gruppe.getMembers().toString());
+            for(Bruker bruker : brukere){
+                List<Affiliated> affiliatedList = Affiliated.find.where().eq("bruker", Bruker.find.byId(bruker.getUsername())).findList();
+                for(Affiliated aff : affiliatedList){
+                    if(id.equals(aff.getEvent().getEventId())){
+                        brukere2.remove(bruker);
+                        break;
+                    }
+                }
+                Affiliated affiliated = new Affiliated(bruker,eve);
+                affiliated.save();
+            }
+            return redirect(routes.Event.renderEvent(eventID).absoluteURL(request()));
+        }
+        return redirect(routes.Event.renderEvent(eventID).absoluteURL(request()));
     }
 
     public static Affiliated getAffiliation(String eventID) {

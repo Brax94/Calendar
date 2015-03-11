@@ -1,4 +1,4 @@
-@(event: models.Event, affiliation: models.Affiliated, invList: List[Affiliated], statusList: List[Integer])
+@(event: models.Event, affiliation: models.Affiliated, invList: List[Affiliated], statusList: List[Integer], groups: List[Gruppe])
 <div class="conteiner-fluid">
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
@@ -34,6 +34,29 @@
                         </div>
                     </form>
                 }
+                <hr>
+                @if(event.getCreator.equals(Bruker.find.byId(session.get("User")))) {
+                <form action="/inviteGroup/@event.getEventId" method="POST">
+                    <div class="form-group">
+                        <lable for="groupID">Invite Group</lable>
+                        <div class="input-group">
+                                <span class="input-group-addon" id="groupID">
+                                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                                </span>
+
+                            <select class="form-control" name="groupID">
+                                @for(i <- groups) {
+                                <option value = "@i.getGroupID()">@i.getGroupName() </option>
+                                }
+                            </select>
+                        </div>
+                        <button type="submit" class="form-control btn btn-success"> Invite </button>
+                    </div>
+                </form>
+                }
+                <hr>
+
+
 
                 <form method="POST" action="/updateStatus/@affiliation.getAffiliatedId()">
                     <div class="btn-group" data-toggle="buttons">

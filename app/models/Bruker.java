@@ -46,6 +46,10 @@ public class Bruker extends Model {
         gruppeList.remove(gruppe);
     }
 
+    public List<Gruppe> getGrupper(){
+        return gruppeList;
+    }
+
 
     public String getUsername() {
         return username;
