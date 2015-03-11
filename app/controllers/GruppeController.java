@@ -34,9 +34,14 @@ public class GruppeController extends Controller{
             Bruker bruker = Bruker.find.byId(new HttpRequestData().get("invUser"));
             models.Gruppe gruppe = Gruppe.find.byId(Long.parseLong(groupID));
             gruppe.addMember(bruker);
-            gruppe.update();
             bruker.addGroup(gruppe);
-            bruker.update();
+            try{
+                gruppe.update();
+                bruker.update();
+            } catch(Exception e){
+
+            }
+
             return redirect(routes.GruppeController.renderGruppe(groupID).absoluteURL(request()));
         }else{
             System.out.println("ERROR");

@@ -19,9 +19,10 @@
             <ul class="nav navbar-nav">
             @if(Bruker.signedIn()) {
                 <li><a href="/event">My Events</a></li>
-                <li><a href="/new">New</a></li>
+                <li><a href="/new">New Event</a></li>
                 <li><a href="/admin">Admin</a></li>
                 <li><a href="/mygroups"> My Groups </a></li>
+                <li><a href="/newgroup"> New Group </a></li>
             }
             </ul>
             @if(!Bruker.signedIn()){

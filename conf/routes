@@ -27,6 +27,7 @@ POST        /updateStatus/:affID        controllers.Event.updateStatus(affID)
 POST        /remove/:affID              controllers.Event.remove(affID)
 GET         /event/edit/:eventID        controllers.Event.editEvent(eventID)
 POST        /event/edit/save/:eventID   controllers.Event.editThisEvent(eventID)
+
 #Grupper
 GET         /mygroups                   controllers.GruppeController.mineGrupper()
 GET         /newgroup                   controllers.GruppeController.newGruppe()
