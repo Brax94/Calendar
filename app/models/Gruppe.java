@@ -21,11 +21,15 @@ public class Gruppe extends Model{
     private String groupName;
     @Column(nullable = false)
     @OneToOne
-    private String creator;
+    private Bruker creator;
     @ManyToMany
     private List<Bruker> brukerList;
     @OneToOne
     private Gruppe motherGruppe;
+
+    public static Model.Finder<Long, Gruppe> find = new Model.Finder<Long, Gruppe> (
+            Long.class, Gruppe.class
+    );
 
 
     public Long getGroupID() {
@@ -40,11 +44,11 @@ public class Gruppe extends Model{
         this.groupName = groupName;
     }
 
-    public String getCreator() {
+    public Bruker getCreator() {
         return creator;
     }
 
-    public void setCreator(String creator) {
+    public void setCreator(Bruker creator) {
         this.creator = creator;
     }
 }

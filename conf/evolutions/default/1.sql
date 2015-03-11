@@ -44,7 +44,7 @@ create table event (
 create table gruppe (
   group_id                  bigint auto_increment not null,
   group_name                varchar(255) not null,
-  creator                   varchar(255) not null,
+  creator_username          varchar(255),
   mother_gruppe_group_id    bigint,
   constraint pk_gruppe primary key (group_id))
 ;
@@ -88,12 +88,14 @@ alter table event add constraint fk_event_creator_3 foreign key (creator_usernam
 create index ix_event_creator_3 on event (creator_username);
 alter table event add constraint fk_event_room_4 foreign key (room_room_id) references room (room_id) on delete restrict on update restrict;
 create index ix_event_room_4 on event (room_room_id);
-alter table gruppe add constraint fk_gruppe_motherGruppe_5 foreign key (mother_gruppe_group_id) references gruppe (group_id) on delete restrict on update restrict;
-create index ix_gruppe_motherGruppe_5 on gruppe (mother_gruppe_group_id);
-alter table rom_booking add constraint fk_rom_booking_room_6 foreign key (room_room_id) references room (room_id) on delete restrict on update restrict;
-create index ix_rom_booking_room_6 on rom_booking (room_room_id);
-alter table rom_booking add constraint fk_rom_booking_event_7 foreign key (event_event_id) references event (event_id) on delete restrict on update restrict;
-create index ix_rom_booking_event_7 on rom_booking (event_event_id);
+alter table gruppe add constraint fk_gruppe_creator_5 foreign key (creator_username) references bruker (username) on delete restrict on update restrict;
+create index ix_gruppe_creator_5 on gruppe (creator_username);
+alter table gruppe add constraint fk_gruppe_motherGruppe_6 foreign key (mother_gruppe_group_id) references gruppe (group_id) on delete restrict on update restrict;
+create index ix_gruppe_motherGruppe_6 on gruppe (mother_gruppe_group_id);
+alter table rom_booking add constraint fk_rom_booking_room_7 foreign key (room_room_id) references room (room_id) on delete restrict on update restrict;
+create index ix_rom_booking_room_7 on rom_booking (room_room_id);
+alter table rom_booking add constraint fk_rom_booking_event_8 foreign key (event_event_id) references event (event_id) on delete restrict on update restrict;
+create index ix_rom_booking_event_8 on rom_booking (event_event_id);
 
 
 
