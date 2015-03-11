@@ -6,7 +6,7 @@
                 <h2><strong><p class="text-center">Edit event</p></strong>
                 </h2>
                 <hr>
-                <form name="event" action="/new/save" method="POST">
+                <form name="event" action="/event/edit/save/@event.getEventId()" method="POST">
                     <div class="form-group">
                         <label for="title">Event title:</label>
                         <div class="input-group">
