@@ -1,5 +1,6 @@
 package controllers;
 
+import controllers.*;
 import models.Affiliated;
 import models.Bruker;
 import models.HttpRequestData;
@@ -162,6 +163,26 @@ public class Event extends Controller {
         models.Event event = models.Event.find.byId(Long.parseLong(eventId));
         List<Room> rooms = Room.find.all();
         return Bruker.signedIn(ok(layoutHtml.render("Edit Event", views.html.Event.editEvent.render(rooms, event))));
+    }
+
+    public static Result editThisEvent(String eventID){
+        Form<models.Event> eventForm = form(models.Event.class).bindFromRequest();
+        models.Event eventModel = eventForm.get();
+        eventModel.setEventStarts(new HttpRequestData().get("eStarts"));
+        System.out.println(new HttpRequestData().get("eStarts"));
+        eventModel.setEventEnds(new HttpRequestData().get("eEnds"));
+        try {
+            Room room = Room.find.byId(Long.parseLong(new HttpRequestData().get("roomId")));
+            eventModel.setRoom(room);
+        }
+        catch(Exception e){
+
+        }
+
+        eventModel.setEventId(Long.parseLong(eventID));
+        eventModel.update();
+
+        return Bruker.signedIn(redirect(routes.Event.renderEvent(eventID).absoluteURL(request())));
     }
 
 }

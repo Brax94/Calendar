@@ -146,4 +146,7 @@ public class Event extends Model{
         return a;
     }
 
+    public void setEventId(Long eventID){
+        this.eventId = eventID;
+    }
 }
