@@ -1,0 +1,78 @@
+@(rooms: List[Room], event : models.Event)
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="box">
+                <h2><strong><p class="text-center">Edit event</p></strong>
+                </h2>
+                <hr>
+                <form name="event" action="/new/save" method="POST">
+                    <div class="form-group">
+                        <label for="title">Event title:</label>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="title-id">
+                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                            </span>
+                            <input type="text" class="form-control" id="title" name="title" aria-describedby="title-id"
+                            placeholder="Title" value="@event.getTitle()">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="text">About your event:</label>
+                        <textarea class="form-control" id="text" name="text"
+                        placeholder="Write something about your event here">@event.getText()</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="place">Place:</label>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="place-id">
+                                <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                            </span>
+                            <input type="text" class="form-control" id="place" name="place" aria-describedby="place-id"
+                            placeholder="Place" value="@event.getPlace()">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="start">Event start:</label>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="start-id">
+                                <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                            </span>
+                            <input type="datetime-local" class="form-control" id="start" name="eStarts" aria-describedby="start-id" value="@event.getDateTimeLocal(event.getEventStarts())">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="end">Event end:</label>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="end-id">
+                                <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                            </span>
+                            <input type="datetime-local" class="form-control" id="end" name="eEnds" aria-describedby="end-id" value="@event.getDateTimeLocal(event.getEventEnds())">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="end">Room:</label>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="end-id">
+                                <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                            </span>
+
+                            <select class="form-control" name="roomId">
+                                <option value = "noRoom">No Room</option>
+                                @for(i <- rooms) {
+                                    <option value = "@i.getRoomId()">@i.getName() (Number of spots: @i.getRoomSize())</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-success form-control" type="submit" aria-label="Left Align">
+                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                            Submit
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

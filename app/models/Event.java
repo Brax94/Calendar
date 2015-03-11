@@ -118,15 +118,32 @@ public class Event extends Model{
         String[] dS = eS[0].split("-");
         String[] tS = eS[1].split(":");
         Calendar cal = new GregorianCalendar();
-        cal.set(Calendar.YEAR, Integer.parseInt(dS[0]));
-        cal.set(Calendar.MONTH, Integer.parseInt(dS[1])-1);
-        cal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(dS[2]));
+        cal.set(Calendar.YEAR, Integer.valueOf(dS[0]));
+        cal.set(Calendar.MONTH, Integer.valueOf(dS[1])-1);
+        cal.set(Calendar.DAY_OF_MONTH, Integer.valueOf(dS[2]));
 
-        cal.set(Calendar.HOUR_OF_DAY, Integer.parseInt(tS[0]));
-        cal.set(Calendar.MINUTE, Integer.parseInt(tS[1]));
+        cal.set(Calendar.HOUR_OF_DAY, Integer.valueOf(tS[0]));
+        cal.set(Calendar.MINUTE, Integer.valueOf(tS[1]));
 
         this.eventEnds = cal;
     }
 
+    public String getDateTimeLocal(Calendar calendar){
+        String dtl = "";
+        dtl += omf("" + calendar.get(Calendar.YEAR)) + "-";
+        dtl += omf("" + (calendar.get(Calendar.MONTH) + 1)) + "-";
+        dtl += omf("" + calendar.get(Calendar.DAY_OF_MONTH)) + "T";
+        dtl += omf("" + calendar.get(Calendar.HOUR_OF_DAY)) + ":";
+        dtl += omf("" + calendar.get(Calendar.MINUTE));
+        System.out.println(dtl);
+        return dtl;
+    }
+
+    public static String omf(String a){
+        if(a.length() < 2 ){
+            return "0" + a;
+        }
+        return a;
+    }
 
 }

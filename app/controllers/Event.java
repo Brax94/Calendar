@@ -7,6 +7,7 @@ import models.Room;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.data.Form;
+import views.html.layoutHtml;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -36,6 +37,7 @@ public class Event extends Controller {
         Form<models.Event> eventForm = form(models.Event.class).bindFromRequest();
         models.Event eventModel = eventForm.get();
         eventModel.setEventStarts(new HttpRequestData().get("eStarts"));
+        System.out.println(new HttpRequestData().get("eStarts"));
         eventModel.setEventEnds(new HttpRequestData().get("eEnds"));
         eventModel.setCreator(Bruker.find.byId(session().get("User")));
         try {
@@ -154,6 +156,12 @@ public class Event extends Controller {
             return true;
         }
         return false;
+    }
+
+    public static Result editEvent(String eventId){
+        models.Event event = models.Event.find.byId(Long.parseLong(eventId));
+        List<Room> rooms = Room.find.all();
+        return Bruker.signedIn(ok(layoutHtml.render("Edit Event", views.html.Event.editEvent.render(rooms, event))));
     }
 
 }

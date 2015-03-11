@@ -25,6 +25,7 @@ GET         /event                      controllers.Event.getEvents()
 POST        /inviteUser/:eventID        controllers.Event.inviteUser(eventID)
 POST        /updateStatus/:affID        controllers.Event.updateStatus(affID)
 POST        /remove/:affID              controllers.Event.remove(affID)
+GET         /event/edit/:eventID        controllers.Event.editEvent(eventID)
 
 #Grupper
 GET         /mygroups                   controllers.GruppeController.mineGrupper()

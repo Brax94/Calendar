@@ -5,6 +5,9 @@
             <div class="box">
 
                 <h2><strong><p class="text-center"> @Html(event.getTitle()) </p></strong></h2>
+                @if(event.getCreator() == Bruker.find.byId(session.get("User"))){
+                    <a href="/event/edit/@event.getEventId()"> <button class="btn btn-success">Edit</button> </a>
+                }
                 <hr>
                 @Html(event.getPlace())
                 <hr>
