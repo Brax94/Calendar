@@ -15,7 +15,7 @@ import static play.data.Form.form;
 public class GruppeController extends Controller{
 
     public static Result mineGrupper(){
-        return Bruker.signedIn(ok(views.html.layoutHtml.render("Groups", views.html.Gruppe.mineGrupper.render())));
+        return Bruker.signedIn(ok(views.html.layoutHtml.render("Groups", views.html.Gruppe.mineGrupper.render(Bruker.find.byId(session("User"))))));
     }
 
     public static Result newGruppe(){
@@ -31,6 +31,7 @@ public class GruppeController extends Controller{
             return Bruker.signedIn(ok(layoutHtml.render("new Gruppe", views.html.Gruppe.newGruppe.render("Group Name Already Exists"))));
         }
         gruppeModel.setCreator(Bruker.find.byId(session("User")));
+        gruppeModel.addBruker(gruppeModel.getCreator());
         gruppeModel.save();
         return Bruker.signedIn(ok(layoutHtml.render("Gruppe", views.html.Gruppe.gruppe.render())));
     }

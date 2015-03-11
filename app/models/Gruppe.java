@@ -3,6 +3,7 @@ package models;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -22,14 +23,22 @@ public class Gruppe extends Model{
     @Column(nullable = false)
     @OneToOne
     private Bruker creator;
-    @ManyToMany
-    private List<Bruker> brukerList;
+    @ManyToMany(mappedBy = "gruppeList")
+    private List<Bruker> brukerList = new ArrayList<Bruker>();
     @OneToOne
     private Gruppe motherGruppe;
 
     public static Model.Finder<Long, Gruppe> find = new Model.Finder<Long, Gruppe> (
             Long.class, Gruppe.class
     );
+
+    public void addBruker(Bruker bruker){
+        brukerList.add(bruker);
+    }
+
+    public void removeBruker(Bruker bruker){
+        brukerList.remove(bruker);
+    }
 
 
     public Long getGroupID() {

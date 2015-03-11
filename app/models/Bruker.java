@@ -4,6 +4,7 @@ import play.mvc.Result;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -27,7 +28,7 @@ public class Bruker extends Model {
     private String firstName;
     private String lastName;
     @ManyToMany
-    private List<Gruppe> gruppeList;
+    private List<Gruppe> gruppeList = new ArrayList<Gruppe>();
 
 
     public static Model.Finder<String, Bruker> find = new Model.Finder<String, Bruker> (
@@ -95,5 +96,13 @@ public class Bruker extends Model {
             return redirect(controllers.routes.LogIn.index().absoluteURL(request()));
         }
         return result;
+    }
+
+    public List<Gruppe> getGruppeList() {
+        return gruppeList;
+    }
+
+    public void setGruppeList(List<Gruppe> gruppeList) {
+        this.gruppeList = gruppeList;
     }
 }

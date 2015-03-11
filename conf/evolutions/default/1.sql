@@ -49,15 +49,6 @@ create table gruppe (
   constraint pk_gruppe primary key (group_id))
 ;
 
-create table rom_booking (
-  room_booking_id           bigint auto_increment not null,
-  room_room_id              bigint,
-  event_event_id            bigint,
-  event_starts              timestamp not null,
-  event_ends                timestamp not null,
-  constraint pk_rom_booking primary key (room_booking_id))
-;
-
 create table room (
   room_id                   bigint auto_increment not null,
   name                      varchar(255) not null,
@@ -71,12 +62,6 @@ create table bruker_gruppe (
   bruker_username                varchar(255) not null,
   gruppe_group_id                bigint not null,
   constraint pk_bruker_gruppe primary key (bruker_username, gruppe_group_id))
-;
-
-create table gruppe_bruker (
-  gruppe_group_id                bigint not null,
-  bruker_username                varchar(255) not null,
-  constraint pk_gruppe_bruker primary key (gruppe_group_id, bruker_username))
 ;
 create sequence bruker_seq;
 
@@ -92,20 +77,12 @@ alter table gruppe add constraint fk_gruppe_creator_5 foreign key (creator_usern
 create index ix_gruppe_creator_5 on gruppe (creator_username);
 alter table gruppe add constraint fk_gruppe_motherGruppe_6 foreign key (mother_gruppe_group_id) references gruppe (group_id) on delete restrict on update restrict;
 create index ix_gruppe_motherGruppe_6 on gruppe (mother_gruppe_group_id);
-alter table rom_booking add constraint fk_rom_booking_room_7 foreign key (room_room_id) references room (room_id) on delete restrict on update restrict;
-create index ix_rom_booking_room_7 on rom_booking (room_room_id);
-alter table rom_booking add constraint fk_rom_booking_event_8 foreign key (event_event_id) references event (event_id) on delete restrict on update restrict;
-create index ix_rom_booking_event_8 on rom_booking (event_event_id);
 
 
 
 alter table bruker_gruppe add constraint fk_bruker_gruppe_bruker_01 foreign key (bruker_username) references bruker (username) on delete restrict on update restrict;
 
 alter table bruker_gruppe add constraint fk_bruker_gruppe_gruppe_02 foreign key (gruppe_group_id) references gruppe (group_id) on delete restrict on update restrict;
-
-alter table gruppe_bruker add constraint fk_gruppe_bruker_gruppe_01 foreign key (gruppe_group_id) references gruppe (group_id) on delete restrict on update restrict;
-
-alter table gruppe_bruker add constraint fk_gruppe_bruker_bruker_02 foreign key (bruker_username) references bruker (username) on delete restrict on update restrict;
 
 # --- !Downs
 
@@ -122,10 +99,6 @@ drop table if exists dbtest;
 drop table if exists event;
 
 drop table if exists gruppe;
-
-drop table if exists gruppe_bruker;
-
-drop table if exists rom_booking;
 
 drop table if exists room;
 
