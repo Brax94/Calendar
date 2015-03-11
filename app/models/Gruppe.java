@@ -11,12 +11,12 @@ import java.util.List;
  */
 
 @Entity
-public class Group extends Model{
+public class Gruppe extends Model{
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(nullable = false, unique = true)
-    private String groupID;
+    private Long groupID;
     @Column(nullable = false)
     private String groupName;
     @Column(nullable = false)
@@ -25,10 +25,10 @@ public class Group extends Model{
     @ManyToMany
     private List<Bruker> brukerList;
     @OneToOne
-    private Group motherGroup;
+    private Gruppe motherGruppe;
 
 
-    public String getGroupID() {
+    public Long getGroupID() {
         return groupID;
     }
 

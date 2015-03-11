@@ -1,12 +1,9 @@
 package models;
 
-import controllers.routes;
 import play.mvc.Result;
-import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,7 +27,7 @@ public class Bruker extends Model {
     private String firstName;
     private String lastName;
     @ManyToMany
-    private List<Group> groupList;
+    private List<Gruppe> gruppeList;
 
 
     public static Model.Finder<String, Bruker> find = new Model.Finder<String, Bruker> (
