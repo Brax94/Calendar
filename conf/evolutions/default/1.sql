@@ -49,6 +49,13 @@ create table gruppe (
   constraint pk_gruppe primary key (group_id))
 ;
 
+create table notification (
+  notif_id                  bigint auto_increment not null,
+  bruker_username           varchar(255),
+  notification              varchar(255),
+  constraint pk_notification primary key (notif_id))
+;
+
 create table room (
   room_id                   bigint auto_increment not null,
   name                      varchar(255) not null,
@@ -77,6 +84,8 @@ alter table gruppe add constraint fk_gruppe_creator_5 foreign key (creator_usern
 create index ix_gruppe_creator_5 on gruppe (creator_username);
 alter table gruppe add constraint fk_gruppe_motherGruppe_6 foreign key (mother_gruppe_group_id) references gruppe (group_id) on delete restrict on update restrict;
 create index ix_gruppe_motherGruppe_6 on gruppe (mother_gruppe_group_id);
+alter table notification add constraint fk_notification_bruker_7 foreign key (bruker_username) references bruker (username) on delete restrict on update restrict;
+create index ix_notification_bruker_7 on notification (bruker_username);
 
 
 
@@ -99,6 +108,8 @@ drop table if exists dbtest;
 drop table if exists event;
 
 drop table if exists gruppe;
+
+drop table if exists notification;
 
 drop table if exists room;
 

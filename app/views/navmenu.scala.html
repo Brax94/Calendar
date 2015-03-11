@@ -23,7 +23,18 @@
                 <li><a href="/admin">Admin</a></li>
                 <li><a href="/mygroups"> My Groups </a></li>
                 <li><a href="/newgroup"> New Group </a></li>
-            }
+                <li><div class="dropdown">
+                    <button class="btn btn-success" id="notif" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Notifications
+                        <span class="caret"></span>
+                    </button>
+                        @for(i <- Bruker.find.byId(session.get("User")).getNotifications()) {
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                            @Html(i.getNotification())
+                            </ul>
+                        }
+                </div></li>
+                    }
             </ul>
             @if(!Bruker.signedIn()){
             <form class="navbar-form navbar-right" action="/signin" method="POST" name="login">

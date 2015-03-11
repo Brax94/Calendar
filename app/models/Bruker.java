@@ -29,7 +29,16 @@ public class Bruker extends Model {
     private String lastName;
     @ManyToMany
     private List<Gruppe> gruppeList = new ArrayList<Gruppe>();
+    @OneToMany
+    List<Notification> notifications = new ArrayList<Notification>();
 
+    public List<Notification> getNotifications() {
+        if(notifications.size() >= 6){
+        return notifications.subList(0, 5);}
+        else{
+            return notifications.subList(0, notifications.size());
+        }
+    }
 
     public static Model.Finder<String, Bruker> find = new Model.Finder<String, Bruker> (
             String.class, Bruker.class
