@@ -7,6 +7,7 @@ import play.db.ebean.Model;
 
 import javax.persistence.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static play.mvc.Controller.request;
@@ -28,11 +29,16 @@ public class Bruker extends Model {
     private String email;
     private String firstName;
     private String lastName;
+    @ManyToMany
+    private List<Group> groupList;
 
 
     public static Model.Finder<String, Bruker> find = new Model.Finder<String, Bruker> (
             String.class, Bruker.class
     );
+
+    public Bruker() {
+    }
 
     public String getUsername() {
         return username;
