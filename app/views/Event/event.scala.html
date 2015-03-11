@@ -15,7 +15,8 @@
                 @Html("" + event.getEventStarts().get(Calendar.HOUR_OF_DAY) + ":" + event.getEventStarts().get(Calendar.MINUTE))
                 @Html(event.getCreator().getFirstName())
                 @Html(event.getCreator().getLastName())
-                @Html(event.getRoom().getName())
+                @if(event.getRoom != null){
+                @Html(event.getRoom().getName())}
                 @if(event.getCreator.equals(Bruker.find.byId(session.get("User")))) {
                     <form action="/inviteUser/@event.getEventId" method="POST">
                         <div class="form-group">
@@ -33,8 +34,8 @@
 
                 <form method="POST" action="/updateStatus/@affiliation.getAffiliatedId()">
                     <div class="btn-group" data-toggle="buttons">
-                        <label class="radio-inline btn btn-success">
-                            <input type="radio" name="status" id="inlineRadio1" value="ATTENDING"> Attending
+                        <label class="radio-inline btn btn-success active">
+                            <input type="radio" name="status" id="inlineRadio1" value="ATTENDING" checked> Attending
                         </label>
                         <label class="radio-inline btn btn-success">
                             <input type="radio" name="status" id="inlineRadio2" value="MAYBE"> Maybe
