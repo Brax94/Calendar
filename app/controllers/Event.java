@@ -200,7 +200,9 @@ public class Event extends Controller {
     public static Result editThisEvent(String eventID) {
         Form<models.Event> eventForm = form(models.Event.class).bindFromRequest();
         models.Event eventModel = eventForm.get();
-        if (Bruker.find.byId(session("User")) == eventModel.getCreator()) {
+        System.out.println(Bruker.find.byId(session("User")) == models.Event.find.byId(Long.parseLong(eventID)).getCreator());
+        if (Bruker.find.byId(session("User")).equals(models.Event.find.byId(Long.parseLong(eventID)).getCreator())) {
+            System.out.println(Bruker.find.byId(session("User")));
             eventModel.setEventStarts(new HttpRequestData().get("eStarts"));
             System.out.println(new HttpRequestData().get("eStarts"));
             eventModel.setEventEnds(new HttpRequestData().get("eEnds"));

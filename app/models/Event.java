@@ -38,7 +38,7 @@ public class Event extends Model{
     @CreatedTimestamp
     private Timestamp dateMade;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany
     List<Affiliated> affiliatedList = new ArrayList<Affiliated>();
 
     public static Finder<Long, Event> find = new Finder<Long, Event> (
