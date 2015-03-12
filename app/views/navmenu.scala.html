@@ -30,7 +30,7 @@
                     </button>
                         @for(i <- Bruker.find.byId(session.get("User")).getNotifications()) {
                             <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                            @Html(i.getNotification())
+                                @Html(i.getNotification())
                             </ul>
                         }
                 </div></li>

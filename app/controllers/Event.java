@@ -92,7 +92,7 @@ public class Event extends Controller {
             if (Affiliated.find.where().eq("bruker", Bruker.find.byId(bruker.getUsername())).where().eq("event", models.Event.find.byId(event.getEventId())).findUnique() == null) {
                 Affiliated affiliated = new Affiliated(bruker, event);
                 affiliated.save();
-                new Notification(bruker, "Invited to new <a href=\"event/"+event.getEventId()+"\"> EVENT </a>" ).save();
+                new Notification(bruker, "Invited to new <a href=\"@routes.Event.renderEvent("+ event.getEventId()+")\"> EVENT </a>" ).save();
             } else {
                 System.out.println("ERROR");
             }
