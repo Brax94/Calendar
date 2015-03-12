@@ -158,6 +158,7 @@ public class Event extends Controller {
         affiliated.setStatus(Affiliated.Status.valueOf(new HttpRequestData().get("status")));
         System.out.println(affiliated.getStatus().toString());
         affiliated.update();
+        new Notification(affiliated.getEvent().getCreator(), ""+affiliated.getBruker().getUsername()+" in "+ affiliated.getEvent().getTitle()+" changed status to "+ new HttpRequestData().get("status")).save();
         return redirect(routes.Event.renderEvent(String.valueOf(affiliated.getEvent().getEventId())).absoluteURL(request()));
     }
 
@@ -216,6 +217,8 @@ public class Event extends Controller {
             eventModel.setEventId(Long.parseLong(eventID));
             eventModel.update();
         }
+
+
 
         return Bruker.signedIn(redirect(routes.Event.renderEvent(eventID).absoluteURL(request())));
     }
