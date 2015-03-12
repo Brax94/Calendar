@@ -33,8 +33,10 @@ public class GruppeController extends Controller{
             System.out.println("ikke null");
             Bruker bruker = Bruker.find.byId(new HttpRequestData().get("invUser"));
             models.Gruppe gruppe = Gruppe.find.byId(Long.parseLong(groupID));
-            gruppe.addMember(bruker);
-            bruker.addGroup(gruppe);
+            if(bruker.getGruppeList().contains(gruppe.getMotherGroup()) || gruppe.getMotherGroup() == null) {
+                gruppe.addMember(bruker);
+                bruker.addGroup(gruppe);
+            }
             try{
                 gruppe.update();
                 bruker.update();
@@ -68,6 +70,8 @@ public class GruppeController extends Controller{
     public static Result createGruppe(){
         Form<Gruppe> gruppeForm = form(models.Gruppe.class).bindFromRequest();
         Gruppe gruppeModel = gruppeForm.get();
+        gruppeModel.setMotherGroup(Gruppe.find.byId(Long.parseLong(new HttpRequestData().get("motherGruppe"))));
+        System.out.println(gruppeModel.getMotherGroup());
         if(Gruppe.find.where().eq("groupName", gruppeModel.getGroupName()).findUnique() != null){
             System.out.println("sjekk" + Gruppe.find.where().eq("groupName", gruppeModel.getGroupName()) + "name");
             return Bruker.signedIn(ok(layoutHtml.render("new Gruppe", views.html.Gruppe.newGruppe.render("Group Name Already Exists"))));
@@ -75,7 +79,7 @@ public class GruppeController extends Controller{
         gruppeModel.setCreator(Bruker.find.byId(session("User")));
         gruppeModel.addBruker(gruppeModel.getCreator());
         gruppeModel.save();
-        return Bruker.signedIn(redirect(routes.GruppeController.renderGruppe(""+gruppeModel.getGroupID()).absoluteURL(request())));
+        return Bruker.signedIn(redirect(routes.GruppeController.renderGruppe("" + gruppeModel.getGroupID()).absoluteURL(request())));
 
 
     }

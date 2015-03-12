@@ -13,8 +13,15 @@
                 <hr>
                 @if(gruppe.getMotherGroup() != null){
                 <hr>
-                @Html("Mothergroup: "+gruppe.getMotherGroup())
+                @Html("Mothergroup: "+gruppe.getMotherGroup().getGroupName())
                 }
+                Undergrupper:
+                <br>
+                @for(i <- models.Gruppe.find.where().eq("motherGruppe", gruppe).findList()){
+                @Html("    * " + i.getGroupName())
+                    <br>
+                }
+                <hr>
                 @if(gruppe.getCreator.equals(Bruker.find.byId(session.get("User")))) {
                 <form action="/inviteGroupUser/@gruppe.getGroupID" method="POST">
                     <div class="form-group">

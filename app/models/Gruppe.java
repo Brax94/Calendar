@@ -25,8 +25,14 @@ public class Gruppe extends Model{
     private Bruker creator;
     @ManyToMany(mappedBy = "gruppeList")
     private List<Bruker> brukerList = new ArrayList<Bruker>();
-    @OneToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Gruppe motherGruppe = null;
+    @OneToMany
+    private List<Gruppe> gruppeList = new ArrayList<Gruppe>();
+
+    public List<Gruppe> getGruppeList() {
+        return gruppeList;
+    }
 
     public static Model.Finder<Long, Gruppe> find = new Model.Finder<Long, Gruppe> (
             Long.class, Gruppe.class

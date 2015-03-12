@@ -1,4 +1,4 @@
-@(error : String)
+@(error: String)
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
@@ -8,13 +8,21 @@
                 @if(error != null) {
                     <p class="text-center" style="color : red">@Html(error)</p>
                 }
-                <form action="/newgroup" method="POST" name="newGroup">
-                    <div class="form-group">
-                        <label for="grpnm">Group Name</label>
-                        <input type="text" placeholder="Group Name" id="grpnm" name="groupName" class="form-control">
-                    </div>
-                    <button type="submit" class="btn btn-success center-block form-control">Create</button>
-                </form>
+                    <form action="/newgroup" method="POST" name="newGroup">
+                        <div class="form-group">
+                            <label for="grpnm">Group Name</label>
+                            <input type="text" placeholder="Group Name" id="grpnm" name="groupName" class="form-control">
+                        </div>
+                        <label for="ug">Mother group</label>
+                        <select class="form-control" name="motherGruppe" id="ug">
+                            <option value = "null">None</option>
+                            @for(i <- Bruker.find.byId(session.get("User")).getGruppeList()) {
+                                <option value = "@i.getGroupID">@i.getGroupName()</option>
+                            }
+                        </select>
+                        <button type="submit" class="btn btn-success center-block form-control">Create</button>
+
+            </form>
             </div>
         </div>
     </div>
