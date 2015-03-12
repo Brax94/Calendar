@@ -26,6 +26,7 @@ POST        /inviteUser/:eventID               controllers.Event.inviteUser(even
 POST        /inviteGroup/:eventID              controllers.Event.inviteGroup(eventID)
 POST        /updateStatus/:affID               controllers.Event.updateStatus(affID)
 POST        /remove/:affID                     controllers.Event.remove(affID)
+POST        /setRoom/:eventID                 controllers.Event.setRoom(eventID)
 GET         /event/edit/:eventID               controllers.Event.editEvent(eventID)
 POST        /event/edit/save/:eventID          controllers.Event.editThisEvent(eventID)
 GET         /event/edit/delete/:eventID        controllers.Event.deleteEvent(eventID)

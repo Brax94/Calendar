@@ -23,7 +23,10 @@ import static play.mvc.Results.ok;
 public class Event extends Controller {
 
     public static Result renderEvent(String eventID) {
-        return Bruker.signedIn(ok(views.html.layoutHtml.render("Event", views.html.Event.event.render(getEvent(eventID), getAffiliation(eventID), getAffiliated(eventID), getStatusNumbers(eventID), getGroups()))));
+        models.Event event = models.Event.find.byId(Long.parseLong(eventID));
+        List<Room> rooms = availableRooms(event.getEventStarts(), event.getEventEnds());
+
+        return Bruker.signedIn(ok(views.html.layoutHtml.render("Event", views.html.Event.event.render(getEvent(eventID), getAffiliation(eventID), getAffiliated(eventID), getStatusNumbers(eventID), getGroups(), rooms))));
     }
 
     public static List<Gruppe> getGroups() {
@@ -31,8 +34,7 @@ public class Event extends Controller {
     }
 
     public static Result newEvent() {
-        List<Room> rooms = Room.find.all();
-        return Bruker.signedIn(ok(views.html.layoutHtml.render("New Event", views.html.Event.newEvent.render(rooms))));
+        return Bruker.signedIn(ok(views.html.layoutHtml.render("New Event", views.html.Event.newEvent.render())));
     }
 
     public static Result saveNewEvent() {
@@ -42,12 +44,6 @@ public class Event extends Controller {
         System.out.println(new HttpRequestData().get("eStarts"));
         eventModel.setEventEnds(new HttpRequestData().get("eEnds"));
         eventModel.setCreator(Bruker.find.byId(session().get("User")));
-        try {
-            Room room = Room.find.byId(Long.parseLong(new HttpRequestData().get("roomId")));
-            eventModel.setRoom(room);
-        } catch (Exception e) {
-
-        }
         eventModel.save();
         Affiliated affiliated = new Affiliated(Bruker.find.byId(session("User")), eventModel);
         affiliated.setStatus(Affiliated.Status.ATTENDING);
@@ -231,6 +227,19 @@ public class Event extends Controller {
             System.out.println("WORKS");
         }
         return redirect(routes.Application.index().absoluteURL(request()));
+    }
+
+    public static Result setRoom(String eventID) {
+        models.Event event = models.Event.find.byId(Long.parseLong(eventID));
+        try {
+            Room room = Room.find.byId(Long.parseLong(new HttpRequestData().get("roomId")));
+            event.setRoom(room);
+            event.save();
+        } catch (Exception e) {
+
+        }
+        return redirect(routes.Event.renderEvent(eventID).absoluteURL(request()));
+
     }
 
 }

@@ -1,4 +1,4 @@
-@(event: models.Event, affiliation: models.Affiliated, invList: List[Affiliated], statusList: List[Integer], groups: List[Gruppe])
+@(event: models.Event, affiliation: models.Affiliated, invList: List[Affiliated], statusList: List[Integer], groups: List[Gruppe], rooms: List[Room])
 <div class="conteiner-fluid">
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
@@ -22,7 +22,7 @@
                 @if(event.getRoom != null){
                 @Html(event.getRoom().getName())}
                 @if(event.getCreator.equals(Bruker.find.byId(session.get("User")))) {
-                    <form action="/inviteUser/@event.getEventId" method="POST">
+                    <form action="/inviteUser/@event.getEventId()" method="POST">
                         <div class="form-group">
                             <lable for="invUser">Invite User</lable>
                             <div class="input-group">
@@ -37,7 +37,7 @@
                 }
                 <hr>
                 @if(event.getCreator.equals(Bruker.find.byId(session.get("User")))) {
-                <form action="/inviteGroup/@event.getEventId" method="POST">
+                <form action="/inviteGroup/@event.getEventId()" method="POST">
                     <div class="form-group">
                         <lable for="groupID">Invite Group</lable>
                         <div class="input-group">
@@ -54,9 +54,26 @@
                         <button type="submit" class="form-control btn btn-success"> Invite </button>
                     </div>
                 </form>
-                }
                 <hr>
+                <form action="/setRoom/@event.getEventId()" method="POST">
+                    <div class="form-group">
+                        <label for="roomID">Room:</label>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="roomId">
+                                <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+                            </span>
 
+                            <select class="form-control" name="roomId">
+                                <option value = "noRoom">No Room</option>
+                                @for(i <- rooms) {
+                                    <option value = "@i.getRoomId()">@i.getName() (Number of spots: @i.getRoomSize())</option>
+                                }
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-inline btn-success"> Sett rom</button>
+                    </div>
+                </form>
+                }
 
 
                 <form method="POST" action="/updateStatus/@affiliation.getAffiliatedId()">
