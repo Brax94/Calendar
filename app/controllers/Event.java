@@ -213,6 +213,15 @@ public class Event extends Controller {
             eventModel.setEventId(Long.parseLong(eventID));
             eventModel.update();
         }
+        List<Affiliated> affiliateds = Affiliated.find.where().eq("event", Event.getEvent(eventID)).findList();
+        String creator = session("User");
+        for(Affiliated aff : affiliateds){
+            Bruker bruker = aff.getBruker();
+            if(bruker.getUsername()!=session("User")){
+                new Notification(bruker, aff.getEvent().getTitle()+" has changed").save();
+            }
+
+        }
 
 
 
