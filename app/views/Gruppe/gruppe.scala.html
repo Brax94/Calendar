@@ -10,15 +10,15 @@
                 <!--redirect til editSide dersom bruker er admin-->
                 <hr>
                 @Html("Creator: "+gruppe.getCreator().getFirstName()+ gruppe.getCreator().getLastName())
-                <hr>
                 @if(gruppe.getMotherGroup() != null){
                 <hr>
-                @Html("Mothergroup: "+gruppe.getMotherGroup().getGroupName())
+                @Html("Mothergroup: " )<a href="/group/@gruppe.getMotherGroup().getGroupID()">@Html(gruppe.getMotherGroup().getGroupName())</a>
                 }
-                Undergrupper:
+                <hr>
+                Subgroups:
                 <br>
                 @for(i <- models.Gruppe.find.where().eq("motherGruppe", gruppe).findList()){
-                @Html("    * " + i.getGroupName())
+                @Html("    * ") <a href="/group/@i.getGroupID"> @Html(i.getGroupName())</a>
                     <br>
                 }
                 <hr>

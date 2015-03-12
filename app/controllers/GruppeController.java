@@ -70,7 +70,11 @@ public class GruppeController extends Controller{
     public static Result createGruppe(){
         Form<Gruppe> gruppeForm = form(models.Gruppe.class).bindFromRequest();
         Gruppe gruppeModel = gruppeForm.get();
-        gruppeModel.setMotherGroup(Gruppe.find.byId(Long.parseLong(new HttpRequestData().get("motherGruppe"))));
+        try{
+        gruppeModel.setMotherGroup(Gruppe.find.byId(Long.parseLong(new HttpRequestData().get("motherGruppe"))));}
+        catch(Exception e){
+            gruppeModel.setMotherGroup(null);
+        }
         System.out.println(gruppeModel.getMotherGroup());
         if(Gruppe.find.where().eq("groupName", gruppeModel.getGroupName()).findUnique() != null){
             System.out.println("sjekk" + Gruppe.find.where().eq("groupName", gruppeModel.getGroupName()) + "name");
