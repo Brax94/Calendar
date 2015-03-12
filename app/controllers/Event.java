@@ -74,7 +74,7 @@ public class Event extends Controller {
                 models.Event event = models.Event.find.byId(Long.parseLong(eventID));
                 Affiliated affiliated = new Affiliated(bruker, event);
                 affiliated.save();
-                new Notification(bruker, "Invited to new <a href=\"event/"+event.getEventId()+"\"> EVENT </a>" ).save();
+                new Notification(bruker, "Invited to new <a href=\"/event/"+event.getEventId()+"\"> EVENT </a>" ).save();
             }
             return redirect(routes.Event.renderEvent(eventID).absoluteURL(request()));
         } else {
@@ -88,7 +88,7 @@ public class Event extends Controller {
             if (Affiliated.find.where().eq("bruker", Bruker.find.byId(bruker.getUsername())).where().eq("event", models.Event.find.byId(event.getEventId())).findUnique() == null) {
                 Affiliated affiliated = new Affiliated(bruker, event);
                 affiliated.save();
-                new Notification(bruker, "Invited to new <a href=\"@routes.Event.renderEvent("+ event.getEventId()+")\"> EVENT </a>" ).save();
+                new Notification(bruker, "Invited to new <a href=\"/event/"+event.getEventId()+"\"> EVENT </a>" ).save();
             } else {
                 System.out.println("ERROR");
             }
@@ -176,13 +176,15 @@ public class Event extends Controller {
     }
 
     public static boolean isColliding(Calendar start, Calendar end, models.Event event) {
-        if ((start.getTimeInMillis() - event.getEventStarts().getTimeInMillis()) < 0 && (end.getTimeInMillis() - event.getEventEnds().getTimeInMillis()) > 0) {
+        long startNew = start.getTimeInMillis();
+        long endNew = end.getTimeInMillis();
+        long startEx = event.getEventStarts().getTimeInMillis();
+        long endEx = event.getEventEnds().getTimeInMillis();
+        if((startNew-startEx)>=0 && (startNew-endEx)<0){
             return true;
-        } else if ((start.getTimeInMillis() - event.getEventStarts().getTimeInMillis()) < 0 && (end.getTimeInMillis() - event.getEventStarts().getTimeInMillis() > 0)) {
+        }else if((endNew-startEx)>0 && (endNew-endEx)<0){
             return true;
-        } else if ((start.getTimeInMillis() - event.getEventStarts().getTimeInMillis()) >= 0 && (end.getTimeInMillis() - event.getEventStarts().getTimeInMillis() <= 0)) {
-            return true;
-        } else if ((start.getTimeInMillis() - event.getEventStarts().getTimeInMillis()) >= 0 && (end.getTimeInMillis() - event.getEventStarts().getTimeInMillis() >= 0)) {
+        }else if((startNew-startEx)<0 &&(endNew-endEx)>0){
             return true;
         }
         return false;
@@ -218,7 +220,7 @@ public class Event extends Controller {
         for(Affiliated aff : affiliateds){
             Bruker bruker = aff.getBruker();
             if(bruker.getUsername()!=session("User")){
-                new Notification(bruker, aff.getEvent().getTitle()+" has changed").save();
+                new Notification(bruker, "<a href=\"/event/"+aff.getEvent().getEventId()+"\"> EVENT </a>"+" has changed").save();
             }
 
         }
