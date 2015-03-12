@@ -53,6 +53,7 @@ create table notification (
   notif_id                  bigint auto_increment not null,
   bruker_username           varchar(255),
   notification              varchar(255),
+  date_made                 timestamp not null,
   constraint pk_notification primary key (notif_id))
 ;
 

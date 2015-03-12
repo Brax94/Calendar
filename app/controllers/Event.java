@@ -204,10 +204,12 @@ public class Event extends Controller {
             System.out.println(new HttpRequestData().get("eStarts"));
             eventModel.setEventEnds(new HttpRequestData().get("eEnds"));
             try {
-                Room room = Room.find.byId(Long.parseLong(new HttpRequestData().get("roomId")));
-                eventModel.setRoom(room);
+                System.out.println("rom er satt til null");
+                models.Event event = models.Event.find.byId(Long.parseLong(eventID));
+                event.setRoom(null);
+                event.save();
             } catch (Exception e) {
-
+                System.out.println("rom er ikke satt til null");
             }
 
             eventModel.setEventId(Long.parseLong(eventID));
@@ -236,7 +238,8 @@ public class Event extends Controller {
             event.setRoom(room);
             event.save();
         } catch (Exception e) {
-
+            event.setRoom(null);
+            event.save();
         }
         return redirect(routes.Event.renderEvent(eventID).absoluteURL(request()));
 
