@@ -1,5 +1,6 @@
 package calendar;
 
+import models.Bruker;
 import models.Event;
 
 import java.text.DateFormat;
@@ -18,12 +19,12 @@ public class EventCalendar {
     Month this_month;
 
 
-    public EventCalendar(List<models.Event> events) {
+    public EventCalendar(List<models.Event> events, Bruker bruker) {
         this.events = new ArrayList<models.Event>();
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
         Calendar cal = Calendar.getInstance();
-        this.this_month = new Month(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), events);
+        this.this_month = new Month(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), events, bruker);
     }
 
     public String getMonthName() {

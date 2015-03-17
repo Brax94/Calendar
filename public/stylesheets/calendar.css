@@ -66,5 +66,12 @@
 
     width: 140px;
     height: 25px;
+}
+
+.blue {
     background: rgba(40, 124, 151, .7);
+}
+
+.red {
+    background: rgba(170, 63, 57, .7);
 }

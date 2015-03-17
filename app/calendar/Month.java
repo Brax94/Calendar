@@ -1,5 +1,6 @@
 package calendar;
 
+import models.Bruker;
 import models.Event;
 
 import java.util.ArrayList;
@@ -20,14 +21,17 @@ public class Month {
     int month;
     int numb_push;
 
+    Bruker bruker;
+
     ArrayList<Day> days;
     List<Event> events;
 
-    public Month(int year, int month, List<models.Event> events) {
+    public Month(int year, int month, List<models.Event> events, Bruker bruker) {
 
         this.year = year;
         this.month = month;
         this.events = events;
+        this.bruker = bruker;
         this.days = new ArrayList<Day>();
 
         int Y = Calendar.YEAR, M = Calendar.MONTH, D = Calendar.DAY_OF_MONTH;
@@ -49,7 +53,7 @@ public class Month {
                         && event.getEventStarts().get(D) == this_day.get(D)) {System.out.println("hei"); this_events.add(event);}
             }
 
-            this.days.add(new Day(this_day, this_events));
+            this.days.add(new Day(this_day, this_events, bruker));
         }
 
         System.out.println(numb_push);
@@ -64,11 +68,11 @@ public class Month {
     }
 
     public Month next() {
-        return new Month(this.year, this.month + 1, this.events);
+        return new Month(this.year, this.month + 1, this.events, bruker);
     }
 
     public Month prev() {
-        return new Month(this.year, this.month - 1, this.events);
+        return new Month(this.year, this.month - 1, this.events, bruker);
     }
 
 
