@@ -1,6 +1,7 @@
 package controllers;
 
 import controllers.*;
+import controllers.routes;
 import models.*;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -34,21 +35,40 @@ public class Event extends Controller {
     }
 
     public static Result newEvent() {
-        return Bruker.signedIn(ok(views.html.layoutHtml.render("New Event", views.html.Event.newEvent.render())));
+        return Bruker.signedIn(ok(views.html.layoutHtml.render("New Event", views.html.Event.newEvent.render(null))));
+    }
+    public static Result newEventError(){
+       return Bruker.signedIn(ok(views.html.layoutHtml.render("New Event", views.html.Event.newEvent.render("Error in input"))));
     }
 
     public static Result saveNewEvent() {
-        Form<models.Event> eventForm = form(models.Event.class).bindFromRequest();
-        models.Event eventModel = eventForm.get();
-        eventModel.setEventStarts(new HttpRequestData().get("eStarts"));
-        System.out.println(new HttpRequestData().get("eStarts"));
-        eventModel.setEventEnds(new HttpRequestData().get("eEnds"));
-        eventModel.setCreator(Bruker.find.byId(session().get("User")));
-        eventModel.save();
-        Affiliated affiliated = new Affiliated(Bruker.find.byId(session("User")), eventModel);
-        affiliated.setStatus(Affiliated.Status.ATTENDING);
-        affiliated.save();
-        return Bruker.signedIn(redirect(routes.Event.renderEvent("" + eventModel.getEventId()).absoluteURL(request())));
+        try {
+            Form<models.Event> eventForm = form(models.Event.class).bindFromRequest();
+            models.Event eventModel = eventForm.get();
+            if(eventModel.getTitle() == ""){
+                throw new Exception();
+            }
+            try {
+                eventModel.setEventStarts(new HttpRequestData().get("eStarts"));
+                System.out.println(new HttpRequestData().get("eStarts"));
+                eventModel.setEventEnds(new HttpRequestData().get("eEnds"));
+                if(eventModel.getEventEnds().before(eventModel.getEventStarts())){
+                    return redirect(routes.Event.newEventError().absoluteURL(request()));
+                }
+            }
+            catch(ArrayIndexOutOfBoundsException e){
+                return redirect(routes.Event.newEventError().absoluteURL(request()));
+            }
+            eventModel.setCreator(Bruker.find.byId(session().get("User")));
+            eventModel.save();
+            Affiliated affiliated = new Affiliated(Bruker.find.byId(session("User")), eventModel);
+            affiliated.setStatus(Affiliated.Status.ATTENDING);
+            affiliated.save();
+            return Bruker.signedIn(redirect(routes.Event.renderEvent("" + eventModel.getEventId()).absoluteURL(request())));
+        }
+        catch(Exception e){
+            return redirect(routes.Event.newEventError().absoluteURL(request()));
+        }
     }
 
     public static models.Event getEvent(String eventID) {
