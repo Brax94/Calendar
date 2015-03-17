@@ -1,6 +1,7 @@
 package controllers;
 
 import com.avaje.ebean.Ebean;
+import models.Bruker;
 import models.Dbtest;
 import play.*;
 import play.data.Form;
@@ -18,7 +19,7 @@ import static play.data.Form.form;
 public class Application extends Controller {
 
     public static List<models.Event> eventList = models.Event.find.all();
-    public static EventCalendar calendar = new EventCalendar(eventList);
+    public static EventCalendar calendar = new EventCalendar(eventList, Bruker.find.byId(session().get("User")));
 
     public static Result index() {
         return ok(layoutHtml.render("Kalender", views.html.Frontpage.frontCalendar.render(getCal())));
