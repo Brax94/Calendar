@@ -28,11 +28,14 @@
                         Notifications
                         <span class="caret"></span>
                     </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                         @for(i <- Bruker.find.byId(session.get("User")).getNotifications()) {
-                            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                            <li>
                                 @Html(i.getNotification())
-                            </ul>
+                                <hr>
+                            </li>
                         }
+                    </ul>
                 </div></li>
                     }
             </ul>

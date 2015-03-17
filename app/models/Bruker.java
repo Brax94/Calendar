@@ -5,6 +5,7 @@ import play.db.ebean.Model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -33,10 +34,13 @@ public class Bruker extends Model {
     List<Notification> notifications = new ArrayList<Notification>();
 
     public List<Notification> getNotifications() {
+        List<Notification> notif = notifications;
+        Collections.reverse(notif);
         if(notifications.size() >= 6){
-        return notifications.subList(0, 5);}
+            return notif.subList(0,5);
+        }
         else{
-            return notifications.subList(0, notifications.size());
+            return notif.subList(0, notifications.size());
         }
     }
 
